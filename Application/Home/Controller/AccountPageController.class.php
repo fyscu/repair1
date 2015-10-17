@@ -15,7 +15,7 @@
 				$this->error('没有token,请重新登录',C('UC_LOGIN_URL'));
 				exit;
 			}
-			$userinfo= json_decode(curl('http://uc.fyscu.com/api/getuserinfo?appid=1009&appkey=533e55482f4d07df&token='.$_GET['access_token']),1);
+			$userinfo= json_decode(curl(C('UC_API').'/getuserinfo?appid=1009&appkey=533e55482f4d07df&token='.$_GET['access_token']),1);
 
 			//dump($userinfo);exit;
 			if($userinfo['code']!=0){
