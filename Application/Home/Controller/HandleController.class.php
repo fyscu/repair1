@@ -152,7 +152,64 @@
         }
 
 
+		/*
+         * 用户订单评价模块，当评价成功时status=6
+         * 返回值为json
+         * @author mohuishou<1@lailin.xyz>
+         **/
+		public function evaluate(){
+			/*用户确认评价订单*/
+			$score=M('score');
+			$order = M('order');
+			$map['order_id'] = $_POST['order_id'];
 
+			//接受的数据
+			$data1['order_id']=$_POST['order_id'];
+			$data1['staff_id']=$_POST['staff_id'];
+			$data1['score']=$_POST['score'];
+			$data1['comment']=$_POST['comment'];
+
+
+			$staff_id1=$score->where($map)->getField('staff_id');
+			$order_status=$order->where($map)->getField('status');
+			//判断订单是否已经评价
+			if(($staff_id1==$data1['staff_id'])||($order_status==6)){
+				$data['status'] = 2;//status=2,订单已评价
+				$data['info'] = '评价订单失败!';
+
+				$updata['status'] = 6; //用户评价订单已完成,status=6
+				$updata['user_confirm_time'] = time();
+				$order->where($map)->save($updata);
+				$this->ajaxReturn($data, 'JSON');
+
+
+				exit();
+			}else{
+				$b=$score->add($data1);
+			}
+
+			if($b) {
+
+
+				$updata['status'] = 6; //用户评价订单已完成,status=6
+				$updata['user_confirm_time'] = time();
+				$a = $order->where($map)->save($updata);
+				if ($a) {
+					$data['status'] = 1;
+					$data['info'] = '评价订单成功!';
+					$this->ajaxReturn($data, 'JSON');
+				} else {
+					$data['status'] = 0;
+					$data['info'] = '评价订单失败!';
+					$this->ajaxReturn($data, 'JSON');
+				}
+			}else{
+				$data['status'] = 0;
+				$data['info'] = '评价订单失败!';
+				$this->ajaxReturn($data, 'JSON');
+			}
+
+		}
 		public function registerpc(){
 
 			if(IS_POST){

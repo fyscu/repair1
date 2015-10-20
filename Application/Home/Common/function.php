@@ -15,7 +15,7 @@ function make_number(){
     function checkOrder($user_id){
         	$a=M('order');
         	$userorder_map['user_id']=$user_id;
-        	$userorder_map['status']=array('in','0,1,3,5');
+        	$userorder_map['status']=array('in','0,1,3,4,5');//新增评价，当status为6时订单才最终完成
         	$order=$a->where($userorder_map)->select();//查找此用户最近的一个订单
         	if($order){
         		return true;//用户有订单，尚未完成维修
