@@ -15,9 +15,23 @@
 				$this->error('没有token,请重新登录',C('UC_LOGIN_URL'));
 				exit;
 			}
-			$userinfo= json_decode(curl(C('UC_API').'/getuserinfo?appid=1009&appkey=533e55482f4d07df&token='.$_GET['access_token']),1);
+			// $userinfo= json_decode(curl(C('UC_API').'/getuserinfo?appid=1009&appkey=533e55482f4d07df&token='.$_GET['access_token']),1);
 
 			//dump($userinfo);exit;
+			//以下是测试服务器上务必注释掉
+			$userinfo=array(
+				code=>0,
+				data=>array(
+					array(
+						"uid"=>1126,
+						"token"=>'debug',
+						'tel'=>'18613227075'
+					)
+				)
+			);
+
+			// dump($userinfo);exit;
+
 			if($userinfo['code']!=0){
 				$this->error('获取资料失败,请重新登录'.$userinfo['msg'],C('UC_LOGIN_URL'));
 				exit;
@@ -28,7 +42,9 @@
 			$a=is_user($userinfo['data'][0]['uid'],'ucid');
 			$telUser=is_userExtend($userinfo['data'][0]['tel']);
 			if($a){
-				//dump($a);exit;
+				// dump($a);exit;
+
+
 				$user_id=$a['user_id'];
 				$type=$a['type'];
 				session('user_id',$user_id);
@@ -117,7 +133,7 @@
 
 
 		}
-		
+
 
 	}
 ?>

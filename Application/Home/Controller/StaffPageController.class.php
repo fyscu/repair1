@@ -17,14 +17,14 @@ use Think\Controller;
         }
 
         public function add(){
-        
+
         		$this->display();
-        	    
+
     }
 
 public function add_order(){
      //调用checkComputer函数，判断是否注册电脑，如果没有则跳转到注册页面注册
-           if(!checkComputer($_GET['user_id'])){     
+           if(!checkComputer($_GET['user_id'])){
                 $this->error('该用户尚未添加电脑！','/Home/StaffPage/add?access_token='.$_GET['access_token']);
            }
 
@@ -41,9 +41,9 @@ exit;
             $userextend=$a->where($map)->find();
 
             //用户电脑信息
-            $b=M('computer');           
+            $b=M('computer');
             $computer=$b->where($map)->order('time desc')->select();
-            
+
             //用户类型 type
             $c=M('user');
             $user=$c->where($map)->find();
@@ -58,7 +58,7 @@ exit;
         public function not(){
 
         	//分页
-            if(isset($_GET['p'])){	
+            if(isset($_GET['p'])){
     			$p=$_GET['p'];
 			}else{
     			$p='1';
@@ -98,14 +98,16 @@ exit;
                 $d=M('orderextend');
                 $map_orderextend['order_id']=$value['order_id'];
                 $orderextend=$d->where($map_orderextend)->find();
-                $info[$key]=array_merge($value,$userextend,$computer,$orderextend);
+                $info[$key]=array_merge($computer,$value,$userextend,$orderextend);
             }
 
    			$count      = $a->where($map_count_not)->count();// 查询满足要求的总记录数
     		$Page       = new \Think\Page($count,$pagecount);// 实例化分页类 传入总记录数和每页显示的记录数
     		$show       = $Page->show();// 分页显示输出
-    		$this->assign('page',$show);// 赋值分页输出       
+    		$this->assign('page',$show);// 赋值分页输出
             $this->assign('info',$info);
+
+						// dump($info);exit;
             $this->display();
         }
 
@@ -113,7 +115,7 @@ exit;
 		/*---------技术员已完成的订单--------------*/
         public function has(){
 
-			if(isset($_GET['p'])){	
+			if(isset($_GET['p'])){
     			$p=$_GET['p'];
 			}else{
     			$p='1';
@@ -158,7 +160,7 @@ exit;
             $count      = $a->where($map_count_has)->count();// 查询满足要求的总记录数
     		$Page       = new \Think\Page($count,$pagecount);// 实例化分页类 传入总记录数和每页显示的记录数
     		$show       = $Page->show();// 分页显示输出
-    		$this->assign('page',$show);// 赋值分页输出 
+    		$this->assign('page',$show);// 赋值分页输出
             $this->assign('info',$info);
             $this->display();
         }

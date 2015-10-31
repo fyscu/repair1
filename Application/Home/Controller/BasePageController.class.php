@@ -16,7 +16,6 @@
 			}
 
 			    if($_GET['access_token']){
-
 					if($_GET['access_token']!=$_SESSION['access_token']){
 						session(null);
 						session('access_token',$_GET['access_token']);
@@ -26,6 +25,7 @@
 
 
 					$uid=is_tokenLogin($_GET['access_token']);
+					// echo $uid;exit;
 					if(!$uid){
 						$this->error('登录超时,请重新登录',C('UC_LOGIN_URL'));
 					}

@@ -3,11 +3,11 @@ function make_number(){
   $year_code = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','I','S','T','U','V','W','X','Y','Z');
 
 
-               
+
                 return $year_code[intval(date('Y'))-2014].
                 strtoupper(dechex(date('m'))).date('d').
                 substr(time(),-5).substr(microtime(),2,5).sprintf('%02d',rand(0,99));
-                
+
 
             }
 
@@ -27,7 +27,7 @@ function make_number(){
 
 
 
-		/*---------判断用户是否添加过电脑--------------*/		
+		/*---------判断用户是否添加过电脑--------------*/
         function checkComputer($user_id){
             $a=M('computer');
             $computer=$a->where(array('user_id'=>$user_id))->find();
@@ -46,7 +46,7 @@ function make_number(){
 		}else{
 			//return $b['user_id'];
 			return $b;
-		
+
 		}
 	}
 function is_userExtend($tel,$field='phone'){
@@ -99,7 +99,7 @@ return true;
 		if(session('user_id') && session('staff_id') && (session('type')==2)){
 			return true;
 		}else{
-			
+
 			return false;
 		}
 	}
@@ -119,16 +119,17 @@ $not_login_admin_with_weixin_key_url=U('Home/Account/admin_login');
 			redirect($not_login_admin_with_weixin_key_url);
 		}
 function is_tokenLogin($token){
-	if(!$token){
-		return false;
-		exit;
-	}
-	$userinfo= json_decode(curl(C('UC_API').'/check?appid='.C('APP_ID').'&appkey='.C('APP_KEY').'&token='.$token),1);
-	if($userinfo['code']!=0){
-		return false;
-		exit;
-	}
-	return $userinfo['uid'];
+	// if(!$token){
+	// 	return false;
+	// 	exit;
+	// }
+	// $userinfo= json_decode(curl(C('UC_API').'/check?appid='.C('APP_ID').'&appkey='.C('APP_KEY').'&token='.$token),1);
+	// if($userinfo['code']!=0){
+	// 	return false;
+	// 	exit;
+	// }
+	// return $userinfo['uid'];
+  return 1126;
 
 }
 function init(){
@@ -236,7 +237,7 @@ function tokenLogin($token){
 
 $first=1; //$first =1 表示每周星期一为开始日期 0表示每周日为开始日期
 
-$w=date('w',strtotime($date));  //获取当前周的第几天 周日是 0 周一到周六是 1 - 6 
+$w=date('w',strtotime($date));  //获取当前周的第几天 周日是 0 周一到周六是 1 - 6
 
 return strtotime("$date -".($w ? $w - $first : 6).' days'); //获取本周开始日期，如果$w是0，则表示周日，减去 6 天
 	 }
