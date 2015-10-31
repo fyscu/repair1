@@ -119,17 +119,17 @@ $not_login_admin_with_weixin_key_url=U('Home/Account/admin_login');
 			redirect($not_login_admin_with_weixin_key_url);
 		}
 function is_tokenLogin($token){
-	// if(!$token){
-	// 	return false;
-	// 	exit;
-	// }
-	// $userinfo= json_decode(curl(C('UC_API').'/check?appid='.C('APP_ID').'&appkey='.C('APP_KEY').'&token='.$token),1);
-	// if($userinfo['code']!=0){
-	// 	return false;
-	// 	exit;
-	// }
-	// return $userinfo['uid'];
-  return 1126;
+	if(!$token){
+		return false;
+		exit;
+	}
+	$userinfo= json_decode(curl(C('UC_API').'/check?appid='.C('APP_ID').'&appkey='.C('APP_KEY').'&token='.$token),1);
+	if($userinfo['code']!=0){
+		return false;
+		exit;
+	}
+	return $userinfo['uid'];
+  // return 1126;
 
 }
 function init(){
