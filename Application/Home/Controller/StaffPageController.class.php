@@ -152,7 +152,7 @@ exit;
                 $d=M('orderextend');
                 $map_orderextend['order_id']=$value['order_id'];
                 $orderextend=$d->where($map_orderextend)->find();
-                $info[$key]=array_merge($value,$userextend,$computer,$orderextend);
+                $info[$key]=array_merge($computer,$value,$userextend,$orderextend);
             }
 
             $count      = $a->where($map_count_has)->count();// 查询满足要求的总记录数
