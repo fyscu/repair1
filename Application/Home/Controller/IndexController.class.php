@@ -50,10 +50,10 @@
 							$tips="当前接机量已超过限制".$setting['week_max']."台，但由于你尊贵的会员身份，你现在依然可以报修，非会员本周内无法报修。";
 							$repair_status="0";
 						}elseif($order>=$setting['week_max']){
-                $tips="非会员请等待下周报修,会员不受此影响";
+                $tips="本周接机量已达上限，请等待下周报修。";
                 $repair_status="1";
             }else{
-                $tips="您可继续报修,当接机量超过".$setting['week_max']."台，非会员本周内无法报修。";
+                $tips="您可继续报修,当接机量超过".$setting['week_max']."台，本周内无法报修。";
                 $repair_status="0";
             }
             $this->assign('repair_status',$repair_status);
