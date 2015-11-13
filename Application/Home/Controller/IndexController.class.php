@@ -2,7 +2,7 @@
 	namespace Home\Controller;
 	use Think\Controller;
 
-	
+
 	class IndexController extends BasePageController {
         public function _initialize(){
             parent::_initialize();
@@ -46,7 +46,10 @@
 
             $set=M('set');
             $setting=$set->where('id=1')->find();
-            if($order>=$setting['week_max']){
+            if($user['type']==1 && $order>=$setting['week_max']){
+							$tips="当前接机量已超过限制".$setting['week_max']."台，但由于你尊贵的会员身份，你现在依然可以报修，非会员本周内无法报修。";
+							$repair_status="0";
+						}elseif($order>=$setting['week_max']){
                 $tips="非会员请等待下周报修,会员不受此影响";
                 $repair_status="1";
             }else{
