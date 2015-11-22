@@ -10,6 +10,8 @@
 <link href="__PUBLIC__/css/style.css" rel="stylesheet">
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/jRate.js"></script>
+    <script src="__PUBLIC__/js/jquery.form.js"></script>
 <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
 <!--[if lt IE 9]>
@@ -69,16 +71,49 @@
 			<button class="btn btn-sm btn-default" id="cancel_order_@#$vo.order_id#@" type="button">取消订单</button>
 			</span>
 			<span class="complete_order"  ajaxid="@#$vo.order_id#@">
-			<button class="btn btn-sm btn-success" id="complete_order_@#$vo.order_id#@" type="button">确认已完成</button>
+			<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal" id="complete_order_@#$vo.order_id#@" type="button">确认已完成并评价</button>
+			</span>
+                <elseif condition="$vo.status eq 4" />
+                <span class="complete_order"  ajaxid="@#$vo.order_id#@">
+			<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal" id="complete_order_@#$vo.order_id#@" type="button">请评价</button>
 			</span>
 			</if>
     	</div>
 </div></p>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">请为本次服务的工作人员打分</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="scoreForm" method="post">
+                        <p>您为他打出的分数是：<span class="score">0</span>分</p>
+                        <div id="jRate">
+
+                        </div>
+                        <input class="iscore" type="hidden" name="score" value="">
+                        <input type="hidden" name="staff_id" value="@#$vo.staff_id#@">
+                        <input type="hidden" name="order_id" value="@#$vo.order_id#@">
+                        <p>快告诉我们您的建议吧</p>
+                        <textarea maxlength="255" placeholder="不要超过255个字哦" class="form-control" name="comment" rows="4"></textarea>
+
+                    <hr>
+                    <button type="submit" class="btn btn-primary btn-block" id="score">提交</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </foreach>
 <div id="page">
 @#$page#@
 </div>
+
 </p>
+
 <else />
 <p>当前无订单</p>
 </if>
@@ -108,7 +143,7 @@ $(document).ready(function(){
 	$(".complete_order").on("click",function(){
 		
 		var order_id=$(this).attr('ajaxid');
-		$("#complete_order_"+order_id).text('处理中..');
+		$("#complete_order_"+order_id).text('点击评分');
 		//alert(order_id);return;
 		$.post("__APP__/Home/Handle/complete?access_token="+access_token,{order_id:order_id},
 			function(data){
@@ -116,7 +151,47 @@ $(document).ready(function(){
 					$("#coplete_order_"+order_id).text('确认失败,请重试');
 					//document.location.reload("__APP__/Home/Index/order");
 				}else{
-					document.location.reload("__APP__/Home/IndexPage/order?access_token="+access_token);
+                    //评分插件设置
+                    $(".imgScore").remove();
+                    $("#jRate").after("<div class='imgScore'></div>");
+                    $(".imgScore").jRate({
+                        startColor: "#71e38e",
+                        endColor: "#59b370",
+                        width:20,
+                        height: 20,
+                        onChange: function(rating) {
+                            $('.score').text(rating);
+                        },
+                        onSet: function(rating) {
+                            $('.score').text(rating);
+                            $('.iscore').val(rating);
+                        }
+                    });
+
+                    $(function(){
+                        var options={
+                            url:"__APP__/Home/Handle/evaluate?access_token=",
+                            success:function(data){
+                                if(data.status==1)
+                                {
+                                    $("#score").text('感谢你的评价');
+                                    alert('感谢你的评价');
+                                    document.location.reload("__APP__/Home/IndexPage/order?access_token="+access_token);
+
+                                }else if(data.status==2){
+                                    $("#score").text('对不起，您的订单已经评价过了');
+                                    alert('对不起，您的订单已经评价过了');
+                                    document.location.reload("__APP__/Home/IndexPage/order?access_token="+access_token);
+                                }
+                                else{
+                                    $("#score").text('评价失败请重试');
+                                }
+                            }
+                        };
+                        $('#scoreForm').ajaxForm(options);
+
+                    });
+
 				}
 			}
 		);//完成的订单号		

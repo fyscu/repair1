@@ -16,6 +16,7 @@
         }
 
         public function index(){
+
             //调用checkComputer函数，判断是否注册电脑，如果没有则跳转到注册页面注册
             if(!checkComputer($_SESSION['user_id'])){
                 redirect('/Home/IndexPage/registerpc?access_token='.$_GET['access_token']);
