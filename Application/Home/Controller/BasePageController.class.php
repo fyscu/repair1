@@ -15,6 +15,13 @@
 				exit;
 			}
 
+
+			if(C('DEBUG')){
+
+session('user_id',185);
+
+			}else{
+
 			    if($_GET['access_token']){
 					if($_GET['access_token']!=$_SESSION['access_token']){
 						session(null);
@@ -37,6 +44,8 @@
 				} else {
 					not_login();
 				}
+
+			}
 		}
 	}
 ?>
