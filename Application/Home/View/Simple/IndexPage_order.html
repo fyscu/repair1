@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<link rel="shortcut icon" href="fyicon.ico"> 
+<link rel="shortcut icon" href="fyicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>飞扬报修系统</title>
 <link href="__PUBLIC__/css/bootstrap.css" rel="stylesheet">
@@ -23,7 +23,7 @@
 <body>
 <input type="hidden" id="access_token" value="@#$_GET['access_token']#@">
  <div class="navbar navbar-fixed-bottom navbar-inverse" role="navigation">
-       <div class="container">   
+       <div class="container">
        	  <ul class="nav nav-pills">
             <li ><a href="__APP__/Home/Index/index?access_token=@#$_GET['access_token']#@">飞扬报修</a></li>
             <li class="active"><a href="__APP__/Home/IndexPage/order?access_token=@#$_GET['access_token']#@">查看订单</a></li>
@@ -33,7 +33,6 @@
     </div>
 <div class="container1">
 	<br><center><h3>我的订单</h3></center>
-	
 <if condition="$count gt 0">
 
 <foreach name="info" item="vo">
@@ -58,14 +57,14 @@
 
 <if condition="($vo.status eq 1) OR ($vo.status eq 3) OR ($vo.status eq 4)">
 <p>技术员姓名：@#$vo.name#@</p>
-<p>技术员联系方式：@#$vo.phone#@</p> 
+<p>技术员联系方式：@#$vo.phone#@</p>
 </if>
-    	
-  		<hr><div align="right"><p> 
+
+  		<hr><div align="right"><p>
 			<if condition="($vo.status eq 0) OR ($vo.status eq 1) OR ($vo.status eq 5) ">
 			<span class="cancel_order"  ajaxid="@#$vo.order_id#@">
 			<button class="btn btn-sm btn-default" id="cancel_order_@#$vo.order_id#@" type="button">取消订单</button>
-			</span>		
+			</span>
 			<elseif condition="$vo.status eq 3" />
 			<span class="cancel_order" ajaxid="@#$vo.order_id#@">
 			<button class="btn btn-sm btn-default" id="cancel_order_@#$vo.order_id#@" type="button">取消订单</button>
@@ -117,14 +116,18 @@
 <else />
 <p>当前无订单</p>
 </if>
-</div> 
+</div>
 
 <script type="text/javascript">
 $(document).ready(function(){
+
+
+
+
 	var access_token=$("#access_token").val();
 	//用户取消订单
-	$(".cancel_order").on("click",function(){	
-		if(confirm("确认要取消该订单吗?")){			
+	$(".cancel_order").on("click",function(){
+		if(confirm("确认要取消该订单吗?")){
 			var order_id=$(this).attr('ajaxid');
 			$("#cancel_order_"+order_id).text('处理中..');
 			//alert(order_id);return;
@@ -141,7 +144,7 @@ $(document).ready(function(){
 	});
 	//用户点击确认完成订单
 	$(".complete_order").on("click",function(){
-		
+
 		var order_id=$(this).attr('ajaxid');
 		$("#complete_order_"+order_id).text('点击评分');
 		//alert(order_id);return;
@@ -194,7 +197,7 @@ $(document).ready(function(){
 
 				}
 			}
-		);//完成的订单号		
+		);//完成的订单号
 	});
 });
 </script>

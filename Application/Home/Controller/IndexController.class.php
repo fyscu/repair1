@@ -2,7 +2,7 @@
 	namespace Home\Controller;
 	use Think\Controller;
 
-	
+
 	class IndexController extends BasePageController {
         public function _initialize(){
             parent::_initialize();
@@ -42,7 +42,7 @@
 
             $d=M('order');
             $ordermap['time']=array('egt',get_week_start());
-            $ordermap['status']=array('in','0,1,3,4');
+            $ordermap['status']=array('in','0,1,3,4,5');
             $order=$d->where($ordermap)->count();
 
             $set=M('set');
