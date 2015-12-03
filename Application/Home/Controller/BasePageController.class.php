@@ -10,15 +10,18 @@
 		/*------初始化...------*/
 		public function _initialize()
 		{
+
+			dump($_GET);
+
+			dump($_SESSION);exit;
+
 			if (C('STOP_REPAIR')) {
 				$this->error('您好,由于临近期中考试，飞扬报修系统暂时关闭系统。系统重新开放后，我们将会在四川大学飞扬俱乐部官方微信/微博进行通知，尽请留意！', '', 8);
 				exit;
 			}
 
 			    if($_GET['access_token']){
-						dump($_GET);
 
-						dump($_SESSION);exit;
 
 					if($_GET['access_token']!=$_SESSION['access_token']){
 						session(null);
