@@ -17,6 +17,9 @@
 
 			    if($_GET['access_token']){
 
+						dump($_GET);
+						dump($_SESSION);
+
 					if($_GET['access_token']!=$_SESSION['access_token']){
 						session(null);
 						session('access_token',$_GET['access_token']);
