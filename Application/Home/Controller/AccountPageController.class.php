@@ -47,11 +47,13 @@
 					$c=$b->where($staff_map)->find();
 					//dump($c);exit;
 					session('staff_id',$c['staff_id']);
+
+
 					redirect('/Home/StaffPage/not?access_token='.$_GET['access_token']);
 
 				}else{
 
-
+      $_SESSION['xxx']='2342314';
 					redirect('/Home/Index/index?access_token='.$_GET['access_token']);
 				}
 			}else if($telUser){
