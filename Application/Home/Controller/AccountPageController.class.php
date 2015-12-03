@@ -69,6 +69,8 @@
 					$admin_map['user_id']=$user_id;
 					$c=$b->where($admin_map)->find();
 					session('admin_id',$c['admin_id']);
+
+					dump($_SESSION);exit;
 					redirect('/Home/AdminPage/index?access_token='.$_GET['access_token']);
 				}elseif($_SESSION['type']==2){
 					//echo '2';exit;
