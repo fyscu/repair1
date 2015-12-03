@@ -28,11 +28,13 @@
 			$a=is_user($userinfo['data'][0]['uid'],'ucid');
 			$telUser=is_userExtend($userinfo['data'][0]['tel']);
 			if($a){
-				//dump($a);exit;
 				$user_id=$a['user_id'];
 				$type=$a['type'];
 				session('user_id',$user_id);
 				session('type',$type);
+dump($_SESSION);
+				dump($a);exit;
+
 				if($_SESSION['type']==3){
 					$b=M('admin');
 					$admin_map['user_id']=$user_id;
@@ -48,6 +50,8 @@
 					redirect('/Home/StaffPage/not?access_token='.$_GET['access_token']);
 
 				}else{
+
+
 					redirect('/Home/Index/index?access_token='.$_GET['access_token']);
 				}
 			}else if($telUser){
