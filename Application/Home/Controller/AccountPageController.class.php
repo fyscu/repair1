@@ -53,14 +53,6 @@
 
 				}else{
 
-      $_SESSION['xxx']='2342314';
-// 			$sessionpath = session_save_path();
-// if (strpos ($sessionpath, ";") !== FALSE)
-// 	$sessionpath = substr ($sessionpath, strpos ($sessionpath, ";")+1);
-//
-// //获取当前session的保存路径
-// echo $sessionpath;
-// exit;
 					redirect('/Home/Index/index?access_token='.$_GET['access_token']);
 				}
 			}else if($telUser){
