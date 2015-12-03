@@ -6,7 +6,6 @@ class AdminPageController extends BasePageController {
 		parent::_initialize();
 
 		if(!is_admin_login()){
-
 			$this->error('你没有权限登录',C('UC_LOGIN_URL'));
 			exit;
 		}
@@ -15,7 +14,7 @@ class AdminPageController extends BasePageController {
 	public function index(){
 
 	$a=M('order');
-	
+
 	$b['all']=$a->count();
 
 	$completed['status']=4;
@@ -98,7 +97,7 @@ if(isset($_GET['pagecount'])){
 }else{
 	$pagecount='20';
 }
- 	$a = M('staff'); 
+ 	$a = M('staff');
  	if(isset($_GET['status'])){
  		if($_GET['status']=='yes'){
 	$staff_map['status']=0;
@@ -108,7 +107,7 @@ if(isset($_GET['pagecount'])){
  		}
 
  	}
- 
+
  	$b = $a->where($staff_map)->page($p.','.$pagecount)->select();
   $f=M('order');
    $order_map['status']=array('in','1,3');
@@ -121,12 +120,12 @@ if(isset($_GET['pagecount'])){
    $h['doing_count']=$g;
    $e[$k]=array_merge($h,$d,$v);
  	}
- 
+
 
  	$count      = $a->where($staff_map)->count();// 查询满足要求的总记录数
  	$Page       = new \Think\Page($count,$pagecount);// 实例化分页类 传入总记录数和每页显示的记录数
  	$show       = $Page->show();// 分页显示输出
- 	$this->assign('page',$show);// 赋值分页输出    	
+ 	$this->assign('page',$show);// 赋值分页输出
     //$this->ajaxReturn($e);
  	$this->assign('staff_list',$e);// 赋值数据集
  //	dump($e);exit;
@@ -135,7 +134,7 @@ if(isset($_GET['pagecount'])){
 //调用类型:GET
 	//调用参数:p,传入数字类型,第几页;默认为1;
 	//调用参数:pagecount,传入数字类型，这一页输出多少数据;默认为20;
-	//调用参数:key,传入要搜索的值，任意类型; 
+	//调用参数:key,传入要搜索的值，任意类型;
 public function order_search(){
 if(isset($_GET['p'])){
 	$p=$_GET['p'];
@@ -156,21 +155,21 @@ if(isset($_GET['key'])){
 /*搜索开始*/
  	$a = M('userextend');
  	$b=M('staff');
- 	$c=M('order'); 
+ 	$c=M('order');
  	  $h=M('computer');
  	  $j=M('orderextend');
  	$user_map['name']  = array('like', '%'.$key.'%');
  	$user_map['phone']  = array('like','%'.$key.'%');
  	$user_map['_logic'] = 'or';
  	$r = $a->where($user_map)->select();
- 	
+
 foreach ($r as $k => $v) {
 	$staff_map1['user_id']=$v['user_id'];
 	$d=$b->where($staff_map1)->find();
 	if($d){
 	$staff_id_map[]=$d['staff_id']; }
 }
-foreach ($r as $k => $v) { 		
+foreach ($r as $k => $v) {
 $user_id_map[]=$v['user_id'];
 }
 $order_map_all['_logic']='or';
@@ -193,7 +192,7 @@ $e=$c->where($order_map_all)->page($p.','.$pagecount)->select();
  		     break;
  		case '2':
  		$v['status']='用户已取消';
- 		
+
  			break;
  		case '3':
  		$v['status']='技术员已确认';
@@ -210,22 +209,22 @@ $e=$c->where($order_map_all)->page($p.','.$pagecount)->select();
  		$v['status']='未知状态';
  			break;
  	}
- 	
+
  	$userextend_map['user_id']=$v['user_id'];
     $f=$a->where($userextend_map)->find();
     $g['user_name']=$f['name'];
     $g['user_phone']=$f['phone'];
-    
+
     $computer_map['computer_id']=$v['computer_id'];
-  
+
     $i=$h->where($computer_map)->find();
-    
+
     $orderextend_map['order_id']=$v['order_id'];
     $l=$j->where($orderextend_map)->find();
    //dump($v);
     if($v['staff_id']>0){
-    
-	
+
+
     $staff_map['staff_id']=$v['staff_id'];
     $m=$b->where($staff_map)->find();
     $n['staff_email']=$m['email'];
@@ -241,7 +240,7 @@ $e=$c->where($order_map_all)->page($p.','.$pagecount)->select();
       $n['staff_name']='';
     $n['staff_phone']='';
   //  dump($m);
-} 
+}
    $q[$k]=array_merge($g,$i,$l,$n,$v);
  	}
 
@@ -249,12 +248,12 @@ $e=$c->where($order_map_all)->page($p.','.$pagecount)->select();
  	$Page       = new \Think\Page($count,$pagecount);// 实例化分页类 传入总记录数和每页显示的记录数
  	$show       = $Page->show();// 分页显示输出
  	$this->assign('page',$show);// 赋值分页输出
- 
+
     //$this->ajaxReturn($e);
  	$this->assign('order_list',$q);// 赋值数据集
  	$this->display('order');
- 
- }	
+
+ }
 	//调用类型:GET
 	//调用参数:p,传入数字类型,第几页;默认为1;
 	//调用参数:pagecount,传入数字类型，这一页输出多少数据;默认为20;
@@ -272,27 +271,27 @@ if(isset($_GET['pagecount'])){
 }else{
 	$pagecount='20';
 }
- 	$a = M('order'); 
+ 	$a = M('order');
 //$order_map['status']=0;
  	if(isset($_GET['status'])){
  		switch ($_GET['status']) {
  			case 'submitted':
- 			$order_map['status']=array('in','0,5');	
+ 			$order_map['status']=array('in','0,5');
  				break;
  			case 'distributed':
- 			$order_map['status']=1;	
+ 			$order_map['status']=1;
  				break;
  			case 'canceled':
- 			$order_map['status']=2;	
+ 			$order_map['status']=2;
  				break;
  			case 'confirmed':
- 			$order_map['status']=3;	
+ 			$order_map['status']=3;
  				break;
  			case 'completed':
- 			$order_map['status']=4;	
+ 			$order_map['status']=4;
  				break;
  			case 'rejected':
- 			$order_map['status']=5;	
+ 			$order_map['status']=5;
  				break;
  			case 'doing':
  			$order_map['status']=array('in','0,1,3,5');
@@ -302,12 +301,12 @@ if(isset($_GET['pagecount'])){
  			break;
  			case 'doing_staff':
  			$order_map['status']=array('in','1,3');
- 			
+
  			default:
- 			
+
  				break;
  		}
- 	
+
  	}
 
  	if(isset($_GET['staff_id'])){
@@ -328,7 +327,7 @@ if(isset($_GET['pagecount'])){
  		     break;
  		case '2':
  		$v['status']='用户已取消';
- 		
+
  			break;
  		case '3':
  		$v['status']='技术员已确认';
@@ -350,7 +349,7 @@ if(isset($_GET['pagecount'])){
     $d=$c->where($userextend_map)->find();
     $h['user_name']=$d['name'];
     $h['user_phone']=$d['phone'];
-    
+
     $computer_map['computer_id']=$v['computer_id'];
     $f=M('computer');
     $g=$f->where($computer_map)->find();
@@ -400,7 +399,7 @@ if(isset($_GET['pagecount'])){
  	$show       = $Page->show();// 分页显示输出
  	$this->assign('page',$show);// 赋值分页输出
     $cc['count']=$count;
-    	
+
     //$this->ajaxReturn($e);
  	$this->assign('order_list',$e);// 赋值数据集
  	//dump($e);exit;
@@ -421,7 +420,7 @@ if(isset($_GET['pagecount'])){
    $b=M('admin');
    $e=$b->where($user_map)->delete();
    }
-   $user_data['type']=0;  
+   $user_data['type']=0;
    $d=$c->where($user_map)->save($user_data);
 if($d && $e){
 $data['status']=1;
@@ -431,8 +430,8 @@ $data['status']=0;
 $data['info']=$d.$e;
 
 }
-	$this->ajaxReturn($data);	
-	
+	$this->ajaxReturn($data);
+
 
 	}
 
@@ -456,12 +455,12 @@ $data['info']=$d.$e;
  				break;
  				case 'admin':
  				$user_map['type']=3;
- 				break; 		
+ 				break;
  			default:
- 			
+
  				break;
  		}
-} 
+}
 if(isset($_GET['p'])){
 	$p=$_GET['p'];
 }else{
@@ -472,7 +471,7 @@ if(isset($_GET['pagecount'])){
 }else{
 	$pagecount='20';
 }
- 	$a = M('user'); 
+ 	$a = M('user');
  	$b = $a->where($user_map)->page($p.','.$pagecount)->select();
 
  	foreach ($b as $k => $v) {
@@ -482,17 +481,17 @@ if(isset($_GET['pagecount'])){
 
    $e[$k]=array_merge($d,$v);
  	}
- 
+
  	$count      = $a->where($user_map)->count();// 查询满足要求的总记录数
  	$Page       = new \Think\Page($count,$pagecount);// 实例化分页类 传入总记录数和每页显示的记录数
  	$show       = $Page->show();// 分页显示输出
  	$this->assign('page',$show);// 赋值分页输出
     $b['count']=$count;
-    	
+
     //$this->ajaxReturn($e);
  	$this->assign('user_list',$e);// 赋值数据集
  	$this->display();
- 
+
  }
  //调用类型:GET
 	//调用参数:p,传入数字类型,第几页;默认为1;
@@ -512,12 +511,12 @@ if(isset($_GET['pagecount'])){
  				break;
  				case 'admin':
  				$user_map['type']=3;
- 				break; 		
+ 				break;
  			default:
- 			
+
  				break;
  		}
-} 
+}
 if(isset($_GET['p'])){
 	$p=$_GET['p'];
 }else{
@@ -532,7 +531,7 @@ if(isset($_GET['key'])){
 	$key=$_GET['key'];
 }
 
- 	$a = M('userextend'); 
+ 	$a = M('userextend');
  	$user_map['name']  = array('like', '%'.$key.'%');
  	$user_map['phone']  = array('like','%'.$key.'%');
  	$user_map['_logic'] = 'or';
@@ -547,11 +546,11 @@ foreach ($b as $k => $v) {
  	$Page       = new \Think\Page($count,$pagecount);// 实例化分页类 传入总记录数和每页显示的记录数
  	$show       = $Page->show();// 分页显示输出
  	$this->assign('page',$show);// 赋值分页输出
-   
+
     //$this->ajaxReturn($e);
  	$this->assign('user_list',$b);// 赋值数据集
  	$this->display('user');
- 
+
  }
  //调用类型:GET
 	//调用参数:p,传入数字类型,第几页;默认为1;
@@ -566,12 +565,12 @@ foreach ($b as $k => $v) {
  			case 'no':
  				$user_map['type']=1;
  				break;
- 			
+
  			default:
- 			
+
  				break;
  		}
-} 
+}
 if(isset($_GET['p'])){
 	$p=$_GET['p'];
 }else{
@@ -586,7 +585,7 @@ if(isset($_GET['key'])){
 	$key=$_GET['key'];
 }
 
- 	$a = M('userextend'); 
+ 	$a = M('userextend');
  	$user_map['name']  = array('like', '%'.$key.'%');
  	$user_map['phone']  = array('like','%'.$key.'%');
  	$user_map['_logic'] = 'or';
@@ -597,7 +596,7 @@ if(isset($_GET['key'])){
 	$d=$c->where($staff_map1)->find();
 	if($d){
 	$staff_id_map[]=$d['staff_id']; }
-}   
+}
 $staff_map['staff_id']=array('in',$staff_id_map);
     $e=$c->where($staff_map)->page($p.','.$pagecount)->select();
      $f=M('order');
@@ -614,10 +613,10 @@ $staff_map['staff_id']=array('in',$staff_id_map);
  	$Page       = new \Think\Page($count,$pagecount);// 实例化分页类 传入总记录数和每页显示的记录数
  	$show       = $Page->show();// 分页显示输出
  	$this->assign('page',$show);// 赋值分页输出
-   
+
     //$this->ajaxReturn($e);
  	$this->assign('staff_list',$l);// 赋值数据集
  	$this->display('staff');
- 
+
  }
 }

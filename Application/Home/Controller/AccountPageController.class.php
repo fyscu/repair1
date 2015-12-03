@@ -32,8 +32,7 @@
 				$type=$a['type'];
 				session('user_id',$user_id);
 				session('type',$type);
-dump($_SESSION);
-				dump($a);exit;
+
 
 				if($_SESSION['type']==3){
 					$b=M('admin');
