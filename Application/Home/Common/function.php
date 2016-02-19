@@ -112,7 +112,7 @@ return true;
 	}
 	function not_login($from_url=''){
 		redirect(C('UC_LOGIN_URL'));
-		}
+	}
 
 function not_admin_login($from_url=''){
 $not_login_admin_with_weixin_key_url=U('Home/Account/admin_login');

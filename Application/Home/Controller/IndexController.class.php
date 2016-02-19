@@ -5,6 +5,7 @@
 
 	class IndexController extends BasePageController {
         public function _initialize(){
+
             parent::_initialize();
             //echo 'index';exit;
             //dump($_SESSION);exit;
