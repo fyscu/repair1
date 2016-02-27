@@ -1,97 +1,98 @@
 <?php
 	namespace Home\Controller;
 	use Think\Controller;
-
 	class AccountPageController extends Controller{
+
+		private $_fyuc = null;
+
+		public function _initialize(){
+			include MODULE_PATH.'Common/fyuc.class.php';
+			$this->_fyuc = new \FYUC(C('APP_ID'),C('APP_KEY'));
+		}
 
 		public function logout(){
 			session(null);
-			$this->success('退出成功！',C('UC_LOGIN_URL'));
+			$this->success('退出成功！',$this->_fyuc->loginUrl(C('UC_CALLBACK')));
 		}
 
 		public function ucLogin(){
-
-			if(!$_GET['access_token']){
-				$this->error('没有token,请重新登录',C('UC_LOGIN_URL'));
-				exit;
-			}
-			$userinfo= json_decode(curl(C('UC_API').'/getuserinfo?appid=1009&appkey=533e55482f4d07df&token='.$_GET['access_token']),1);
-
-			//dump($userinfo);exit;
-			if($userinfo['code']!=0){
-				$this->error('获取资料失败,请重新登录'.$userinfo['msg'],C('UC_LOGIN_URL'));
+			if(!$_GET['token']){
+				$this->error('没有token,请重新登录',$this->_fyuc->loginUrl(C('UC_CALLBACK')));
 				exit;
 			}
 
-			session('ucid',$userinfo['data'][0]['uid']);
-			session('access_token',$_GET['access_token']);
-			$a=is_user($userinfo['data'][0]['uid'],'ucid');
-			$telUser=is_userExtend($userinfo['data'][0]['tel']);
-			if($a){
-				$user_id=$a['user_id'];
-				$type=$a['type'];
-				session('user_id',$user_id);
-				session('type',$type);
-
-
-				if($_SESSION['type']==3){
-					$b=M('admin');
-					$admin_map['user_id']=$user_id;
-					$c=$b->where($admin_map)->find();
-					session('admin_id',$c['admin_id']);
-
-					redirect('/Home/AdminPage/index?access_token='.$_GET['access_token']);
-				}elseif($_SESSION['type']==2){
-					$b=M('staff');
-					$staff_map['user_id']=$user_id;
-					$c=$b->where($staff_map)->find();
-					//dump($c);exit;
-					session('staff_id',$c['staff_id']);
-
-
-					redirect('/Home/StaffPage/not?access_token='.$_GET['access_token']);
-
-				}else{
-
-					redirect('/Home/Index/index?access_token='.$_GET['access_token']);
-				}
-			}else if($telUser){
-				$user=M('user');
-				$usermap['user_id']=$telUser['user_id'];
-				$data['ucid']=$userinfo['data'][0]['uid'];
-				$user->where($usermap)->save($data);
-				$user_id=$telUser['user_id'];
-				$type=$user->where($usermap)->getField('type');
-
-
-				session('user_id',$user_id);
-				session('type',$type);
-				if($_SESSION['type']==3){
-					$b=M('admin');
-					$admin_map['user_id']=$user_id;
-					$c=$b->where($admin_map)->find();
-					session('admin_id',$c['admin_id']);
-
-					redirect('/Home/AdminPage/index?access_token='.$_GET['access_token']);
-				}elseif($_SESSION['type']==2){
-					//echo '2';exit;
-					$b=M('staff');
-					$staff_map['user_id']=$user_id;
-					$c=$b->where($staff_map)->find();
-					//dump($c);exit;
-					session('staff_id',$c['staff_id']);
-					redirect('/Home/StaffPage/not?access_token='.$_GET['access_token']);
-
-				}else{
-					//dump($_SESSION);exit;
-					redirect('/Home/Index/index?access_token='.$_GET['access_token']);
-				}
+			if(!$this->_fyuc->processCallback()){
+				$this->error('获取资料失败,请重新登录',$this->_fyuc->loginUrl(C('UC_CALLBACK')));
+				exit;
 			}else{
+				session('ucid',$_GET['account']);
+				session('token',$_GET['token']);
+				$a=is_user($_GET['account'],'ucid');
+				$telUser=is_userExtend($_GET['account']);
 
-				session('tel',$userinfo['data'][0]['tel']);
-				redirect('/Home/AccountPage/register?access_token='.$_GET['access_token']);
+				if($a){
+					$user_id=$a['user_id'];
+					$type=$a['type'];
+					session('user_id',$user_id);
+					session('type',$type);
+
+
+					if($_SESSION['type']==3){
+						$b=M('admin');
+						$admin_map['user_id']=$user_id;
+						$c=$b->where($admin_map)->find();
+						session('admin_id',$c['admin_id']);
+
+						redirect('/Home/AdminPage/index?token='.$_GET['token'].'&account='.$_GET['account']);
+					}elseif($_SESSION['type']==2){
+						$b=M('staff');
+						$staff_map['user_id']=$user_id;
+						$c=$b->where($staff_map)->find();
+						//dump($c);exit;
+						session('staff_id',$c['staff_id']);
+						redirect('/Home/StaffPage/not?token='.$_GET['token'].'&account='.$_GET['account']);
+
+					}else{
+						redirect('/Home/Index/index?token='.$_GET['token'].'&account='.$_GET['account']);
+					}
+				}else if($telUser){
+					$user=M('user');
+					$usermap['user_id']=$telUser['user_id'];
+					$data['ucid']=$_GET['account'];
+					
+					$user->where($usermap)->save($data);
+					$user_id=$telUser['user_id'];
+
+					$type=$user->where($usermap)->getField('type');
+
+					session('user_id',$user_id);
+					session('type',$type);
+					if($_SESSION['type']==3){
+						$b=M('admin');
+						$admin_map['user_id']=$user_id;
+						$c=$b->where($admin_map)->find();
+						session('admin_id',$c['admin_id']);
+
+						redirect('/Home/AdminPage/index?token='.$_GET['token'].'&account='.$_GET['account']);
+					}elseif($_SESSION['type']==2){
+						//echo '2';exit;
+						$b=M('staff');
+						$staff_map['user_id']=$user_id;
+						$c=$b->where($staff_map)->find();
+						//dump($c);exit;
+						session('staff_id',$c['staff_id']);
+						redirect('/Home/StaffPage/not?token='.$_GET['token'].'&account='.$_GET['account']);
+
+					}else{
+						//dump($_SESSION);exit;
+						redirect('/Home/Index/index?token='.$_GET['token'].'&account='.$_GET['account']);
+					}
+				}else{
+
+					session('tel',$_GET['account']);
+					redirect('/Home/AccountPage/register?token='.$_GET['token'].'&account='.$_GET['account']);
+				}
 			}
-
 		}
 		public function register(){
 
@@ -101,21 +102,21 @@
 				exit;
 			}
 
-			if($_GET['access_token']){
-				$uid=is_tokenLogin($_GET['access_token']);
+			if($_GET['token']){
+				$uid=is_tokenLogin($_GET['token']);
 				if(!$uid){
-					$this->error('登录超时,请重新登录',C('UC_LOGIN_URL'));
+					$this->error('登录超时,请重新登录',$this->_fyuc->loginUrl(C('UC_CALLBACK')));
 				}else{
 
 					if(is_userExtend($_SESSION['tel'])){
-						$this->error('您已经注册过飞扬报修系统了,将跳转至首页','/Home/Index/index?access_token='.$_GET['access_token']);
+						$this->error('您已经注册过飞扬报修系统了,将跳转至首页','/Home/Index/index?token='.$_GET['token'].'&account='.$_GET['account']);
 						exit;
 					}else{
 						$this->display();
 					}
 				}
-			}else if($_SESSION['access_token']){
-					redirect(__SELF__.'?access_token='.$_SESSION['access_token']);
+			}else if($_SESSION['token']){
+					redirect(__SELF__.'?token='.$_SESSION['token'].'&account='.$_GET['account']);
 			} else {
 				not_login();
 			}

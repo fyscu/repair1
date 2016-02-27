@@ -5,26 +5,23 @@
 
 	class IndexController extends BasePageController {
         public function _initialize(){
-
             parent::_initialize();
-            //echo 'index';exit;
-            //dump($_SESSION);exit;
             if(is_admin_login()){
-                redirect('/Home/AdminPage/index?access_token='.$_GET['access_token']);
+                redirect('/Home/AdminPage/index?token='.$_GET['token'].'&account='.$_GET['account']);
             }elseif(is_staff_login()){
-                redirect('/Home/StaffPage/index?access_token='.$_GET['access_token']);
+                redirect('/Home/StaffPage/index?token='.$_GET['token'].'&account='.$_GET['account']);
             }
         }
 
         public function index(){
             //调用checkComputer函数，判断是否注册电脑，如果没有则跳转到注册页面注册
             if(!checkComputer($_SESSION['user_id'])){
-                redirect('/Home/IndexPage/registerpc?access_token='.$_GET['access_token']);
+                redirect('/Home/IndexPage/registerpc?token='.$_GET['token'].'&account='.$_GET['account']);
             }
 
             //调用checkOrder函数，判断是有订单未完成，如果有则跳转至【我的订单】
             if(checkOrder($_SESSION['user_id'])){
-                $this->error('您有尚未完成的订单，请确认完成后再进行报修！','/Home/IndexPage/order?access_token='.$_GET['access_token']);
+                $this->error('您有尚未完成的订单，请确认完成后再进行报修！','/Home/IndexPage/order?token='.$_GET['access_token'].'&account='.$_GET['account']);
             }
 
             //查找用户信息

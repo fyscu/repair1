@@ -19,12 +19,13 @@
 </head>
 
 <body>
-<input type="hidden" id="access_token" value="@#$_GET['access_token']#@">
+<input type="hidden" id="account" value="@#$_GET['account']#@">
+<input type="hidden" id="token" value="@#$_GET['token']#@">
  <div class="navbar navbar-fixed-bottom navbar-inverse" role="navigation">
        <div class="container">   
        	  <ul class="nav nav-pills">
-            <li ><a href="__APP__/Home/Index/index?access_token=@#$_GET['access_token']#@">飞扬报修</a></li>
-            <li class="active"><a href="__APP__/Home/IndexPage/order?access_token=@#$_GET['access_token']#@">查看订单</a></li>
+            <li ><a href="__APP__/Home/Index/index?token=@#$_GET['token']#@&account=@#$_GET['account']#@">飞扬报修</a></li>
+            <li class="active"><a href="__APP__/Home/IndexPage/order?token=@#$_GET['token']#@&account=@#$_GET['account']#@">查看订单</a></li>
             <li><a href="__APP__/Home/AccountPage/logout">退出</a></li>
           </ul>
        </div>
@@ -86,20 +87,21 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	var access_token=$("#access_token").val();
+	var account = $("#account").val();
+	var token=$("#token").val();
 	//用户取消订单
 	$(".cancel_order").on("click",function(){	
 		if(confirm("确认要取消该订单吗?")){			
 			var order_id=$(this).attr('ajaxid');
 			$("#cancel_order_"+order_id).text('处理中..');
 			//alert(order_id);return;
-			$.post("__APP__/Home/Handle/cancel?access_token="+access_token, {order_id:order_id},//取消的订单号
+			$.post("__APP__/Home/Handle/cancel?token="+token+'&account='+account, {order_id:order_id},//取消的订单号
 				function(data){
 					if(data.status==0){
 						$("#cancel_order_"+order_id).text('取消失败,请重试');
 						//document.location.reload("__APP__/Home/Index/order");
 					}else{
-						document.location.reload("__APP__/Home/IndexPage/order?access_token="+access_token);//重新加载网页
+						document.location.reload("__APP__/Home/IndexPage/order?token="+token+'&account='+account);//重新加载网页
 					}
 			});
 		}
@@ -110,13 +112,12 @@ $(document).ready(function(){
 		var order_id=$(this).attr('ajaxid');
 		$("#complete_order_"+order_id).text('处理中..');
 		//alert(order_id);return;
-		$.post("__APP__/Home/Handle/complete?access_token="+access_token,{order_id:order_id},
+		$.post("__APP__/Home/Handle/complete?token="+token+'&account='+account,{order_id:order_id},
 			function(data){
 				if(data.status==0){
 					$("#coplete_order_"+order_id).text('确认失败,请重试');
-					//document.location.reload("__APP__/Home/Index/order");
 				}else{
-					document.location.reload("__APP__/Home/IndexPage/order?access_token="+access_token);
+					document.location.reload("__APP__/Home/IndexPage/order?token="+token+'&account='+account);
 				}
 			}
 		);//完成的订单号		

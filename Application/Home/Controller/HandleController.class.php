@@ -154,7 +154,6 @@
 
 
 		public function registerpc(){
-
 			if(IS_POST){
 				$a=M('computer');
 				$data['user_id']=$_SESSION['user_id'];

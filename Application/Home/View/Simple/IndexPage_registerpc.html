@@ -12,12 +12,13 @@
 </head>
 
 <body>
-<input type="hidden" id="access_token" value="@#$_GET['access_token']#@">
+<input type="hidden" id="account" value="@#$_GET['account']#@">
+<input type="hidden" id="token" value="@#$_GET['token']#@">
  <div class="navbar navbar-fixed-bottom navbar-inverse" role="navigation">
        <div class="container">   
           <ul class="nav nav-pills">
-            <li class="active"><a href="__APP__/Home/Index/index?access_token=@#$_GET['access_token']#@">飞扬报修</a></li>
-            <li><a href="__APP__/Home/IndexPage/order?access_token=@#$_GET['access_token']#@">查看订单</a></li>
+            <li class="active"><a href="__APP__/Home/Index/index?token=@#$_GET['token']#@&account=@#$_GET['account']#@">飞扬报修</a></li>
+            <li><a href="__APP__/Home/IndexPage/order?token=@#$_GET['token']#@&account=@#$_GET['account']#@">查看订单</a></li>
             <li><a href="__APP__/Home/AccountPage/logout">退出</a></li>
           </ul>
        </div>
@@ -25,7 +26,7 @@
     
 <div class="container">
   <br>
-    <form class="form-info" method="post" action="__APP__/Home/Account/register?access_token=@#$_GET['access_token']#@">
+    <form class="form-info" method="post" action="__APP__/Home/Account/register?token=@#$_GET['token']#@&account=@#$_GET['account']#@">
     <div id="add_computer">
           <p class="text-warning">请完善您的电脑信息，以便我们及时处理您的报修请求。</p>
             <p><input class="form-control"  type="text" name="brand" id="brand" placeholder="品牌">
@@ -41,7 +42,8 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-  var access_token=$("#access_token").val();
+  var account = $("#account").val();
+  var token=$("#token").val();
   $("#error_brand").hide();
   $("#error_model").hide();
   $("#error_buy_time").hide();
@@ -62,7 +64,7 @@ $(document).ready(function(){
         $("#error_model").hide();
         $("#error_buy_time").hide();
         $("#submit_new_computer").text('提交中..');
-        $.post("__APP__/Home/Handle/registerpc?access_token="+access_token, {brand:brand,model:model,buy_time:buy_time},
+        $.post("__APP__/Home/Handle/registerpc?token="+token+'&account='+account, {brand:brand,model:model,buy_time:buy_time},
           function(data){
         if(data.status==0){
           alert('提交失败，请稍后再试');
@@ -75,7 +77,7 @@ $(document).ready(function(){
           $("#submit_new_computer").text('确定');
         }else{
           $("#submit_new_computer").text('提交成功！跳转中..');
-            window.location.href="__APP__/Home/Index/index?access_token="+access_token;//跳转到下一页面
+            window.location.href="__APP__/Home/Index/index?token="+token+'&account='+account;//跳转到下一页面
         
         }
       });
@@ -96,7 +98,7 @@ $(document).ready(function(){
       $("#error_model").hide();
       $("#error_buy_time").hide();
       $("#submit_new_computer").text('提交中..');
-      $.post("__APP__/Home/Handle/registerpc?access_token="+access_token, {brand:brand,model:model,buy_time:buy_time},
+      $.post("__APP__/Home/Handle/registerpc?token="+token+'&account='+account, {brand:brand,model:model,buy_time:buy_time},
         function(data){
         if(data.status==0){
           alert('提交失败，请稍后再试');
@@ -109,7 +111,7 @@ $(document).ready(function(){
           $("#submit_new_computer").text('确定');
         }else{
           $("#submit_new_computer").text('提交成功！跳转中..');
-            window.location.href="__APP__/Home/Index/index?access_token="+access_token;//跳转到下一页面
+            window.location.href="__APP__/Home/Index/index?token="+token+'&account='+account;//跳转到下一页面
         
         }
       });

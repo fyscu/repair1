@@ -6,6 +6,7 @@ use Think\Controller;
 class BasePageController extends Controller
 {
 
+    private $_fyuc = null;
     /*------初始化...------*/
     public function _initialize()
     {
@@ -14,23 +15,22 @@ class BasePageController extends Controller
             exit;
         }
 
-        if ($_GET['access_token']) {
-
-            if ($_GET['access_token'] != $_SESSION['access_token']) {
+        if ($_GET['token']) {
+            include MODULE_PATH.'Common/fyuc.class.php';
+            $this->_fyuc = new \FYUC(C('APP_ID'),C('APP_KEY'));
+            if ($_GET['token'] != $_SESSION['token']) {
                 session(null);
-                session('access_token', $_GET['access_token']);
-                redirect('/Home/AccountPage/ucLogin?access_token=' . $_GET['access_token']);
+                session('token', $_GET['token']);
+                redirect('/Home/AccountPage/ucLogin?token=' . $_GET['token'].'&account='.$_GET['account']);
                 exit;
             }
 
-
-            $uid = is_tokenLogin($_GET['access_token']);
-            if (!$uid) {
-                $this->error('登录超时,请重新登录', C('UC_LOGIN_URL'));
+            if (!$this->_fyuc->processCallback()) {
+                $this->error('登录超时,请重新登录', $this->_fyuc->loginUrl(C('UC_CALLBACK')));
             }
-        } else if ($_SESSION['access_token']) {
+        } else if ($_SESSION['token']) {
             $self = __SELF__;
-            redirect(__SELF__ . '?access_token=' . $_SESSION['access_token']);
+            redirect(__SELF__ . '?token=' . $_SESSION['token'].'&account='.$_GET['account']);
         } else {
             not_login();
         }

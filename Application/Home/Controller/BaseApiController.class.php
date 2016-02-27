@@ -6,7 +6,7 @@ use Think\Controller;
 
 class BaseApiController extends Controller
 {
-
+	private $_fyuc = null;
 	/*------初始化...------*/
 	public function _initialize()
 	{
@@ -17,9 +17,10 @@ class BaseApiController extends Controller
 			exit;
 		}
 
-		if($_GET['access_token']){
-
-			if($_GET['access_token']!=$_SESSION['access_token']){
+		if($_GET['token']){
+			include MODULE_PATH.'Common/fyuc.class.php';
+			$this->_fyuc = new \FYUC(C('APP_ID'),C('APP_KEY'));
+			if($_GET['token']!=$_SESSION['token']){
 				session(null);
 				$data['status']=0;
 				$data['info']='登录超时,请重新登录';
@@ -28,9 +29,7 @@ class BaseApiController extends Controller
 				exit;
 			}
 
-
-			$uid=is_tokenLogin($_GET['access_token']);
-			if(!$uid){
+			if(!$this->_fyuc->processCallback()){
 				$data['status']=0;
 				$data['info']='登录超时,请重新登录';
 				$this->ajaxReturn($data,'JSON');
