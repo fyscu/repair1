@@ -21,12 +21,12 @@
 </head>
 
 <body>
-<input type="hidden" id="access_token" value="@#$_GET['access_token']#@">
+<input type="hidden" id="token" value="@#$_GET['token']#@">
  <div class="navbar navbar-fixed-bottom navbar-inverse" role="navigation">
        <div class="container">   
        	  <ul class="nav nav-pills">
-       	   <li><a href="__APP__/Home/StaffPage/add?access_token=@#$_GET['access_token']#@">一键接单</a></li>
-            <li class="active"><a href="__APP__/Home/StaffPage/not?access_token=@#$_GET['access_token']#@">查看订单</a></li>
+       	   <li><a href="__APP__/Home/StaffPage/add?token=@#$_GET['token']#@">一键接单</a></li>
+            <li class="active"><a href="__APP__/Home/StaffPage/not?token=@#$_GET['token']#@">查看订单</a></li>
             <li><a href="__APP__/Home/AccountPage/logout">退出</a></li>
           </ul>
        </div>
@@ -34,8 +34,8 @@
 <div class="container1">
 <br><center><h3>我的维修单</h3></center>
 	<ul class="nav nav-tabs">
-	  <li class="active"><a href="__APP__/Home/StaffPage/not?access_token=@#$_GET['access_token']#@">未完成(@#$count_not#@)</a></li>
-	  <li><a href="__APP__/Home/StaffPage/has?access_token=@#$_GET['access_token']#@">已完成(@#$count_has#@)</a></li>
+	  <li class="active"><a href="__APP__/Home/StaffPage/not?token=@#$_GET['token']#@">未完成(@#$count_not#@)</a></li>
+	  <li><a href="__APP__/Home/StaffPage/has?token=@#$_GET['token']#@">已完成(@#$count_has#@)</a></li>
 	</ul>
 	<foreach name="info" item="vo">
 	<div class="jumbotron"><!--每一个订单-->
@@ -101,20 +101,20 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	var access_token=$("#access_token").val();
+	var token=$("#token").val();
 	//接单
 	$("#error_reason").hide();
 	$(".accept_order").on("click",function(){	
 			var order_id=$(this).attr('ajaxid');
 			$("#accept_order_"+order_id).text('处理中..');
-			$.post("__APP__/Home/Handle/accept?access_token="+access_token, {order_id:order_id},//取消的订单号
+			$.post("__APP__/Home/Handle/accept?token="+token, {order_id:order_id},//取消的订单号
 				function(data){
 					if(data.status==0){
 						$("#accept_order_"+order_id).text('接单失败,请重试');
 						//document.location.reload("__APP__/Home/Handle/staffnot");
 					}else{
 						$("#accept_order_"+order_id).text('接单成功');
-						window.location.reload("__APP__/Home/StaffPage/not?access_token="+access_token);//重新加载网页
+						window.location.reload("__APP__/Home/StaffPage/not?token="+token);//重新加载网页
 					}
 			});
 	});
@@ -124,7 +124,7 @@ $(document).ready(function(){
 		var refuse_order_id=$(this).attr('ajaxid');
 		var staff_id=$(this).attr('staff-id');
 		$("#refuse_order_"+order_id).text('处理中...');
-		$.post("__APP__/Home/Handle/check_refuse?access_token="+access_token,{order_id:order_id,refuse_order_id:refuse_order_id,staff_id:staff_id},
+		$.post("__APP__/Home/Handle/check_refuse?token="+token,{order_id:order_id,refuse_order_id:refuse_order_id,staff_id:staff_id},
 			function(data){
 				if(data.status==0){
 				    $("#refuse_order_id").val(order_id);
@@ -148,11 +148,11 @@ $(document).ready(function(){
       //若均填写隐藏提示信息
       $("#error_reason").hide();
       $("#submit_new_refuse").text('处理中..');
-      $.post("__APP__/Home/Handle/refuse?access_token="+access_token, {order_id:order_id,staff_id:staff_id,reason:reason},
+      $.post("__APP__/Home/Handle/refuse?token="+token, {order_id:order_id,staff_id:staff_id,reason:reason},
         function(data){
          if(data.status==0){
          $("#submit_new_refuse").text('拒绝成功!');
-location.href="__APP__/Home/StaffPage/not?access_token="+access_token;
+location.href="__APP__/Home/StaffPage/not?token="+token;
         }else{
           $("#submit_new_computer").text('确认拒绝');
           $("#error_reason_ajax").text(data.des);
