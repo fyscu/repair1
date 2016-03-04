@@ -17,6 +17,11 @@ class BaseApiController extends Controller
 			exit;
 		}
 
+		if(C('DEBUG')){
+
+			//不做权限检测
+		}else{
+
 		if($_GET['token']){
 			include MODULE_PATH.'Common/fyuc.class.php';
 			$this->_fyuc = new \FYUC(C('APP_ID'),C('APP_KEY'));
@@ -25,7 +30,6 @@ class BaseApiController extends Controller
 				$data['status']=0;
 				$data['info']='登录超时,请重新登录';
 				$this->ajaxReturn($data,'JSON');
-				exit;
 				exit;
 			}
 
@@ -41,6 +45,7 @@ class BaseApiController extends Controller
 			$this->ajaxReturn($data,'JSON');
 			exit;
 		}
+	}
 	}
 }
 ?>
