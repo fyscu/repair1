@@ -70,14 +70,14 @@
 <!-- BEGIN BODY -->
 
 <body class="page-header-fixed">
-<input type="hidden" id="access_token" value="@#$_GET['access_token']#@">
+<input type="hidden" id="token" value="@#$_GET['token']#@">
 	<!-- BEGIN HEADER -->
 	<div class="header navbar navbar-inverse navbar-fixed-top">
 		<!-- BEGIN TOP NAVIGATION BAR -->
 		<div class="navbar-inner">
 			<div class="container-fluid">
 				<!-- BEGIN LOGO -->
-				<a class="brand" href="__APP__/Home/AdminPage/index?access_token=@#$_GET['access_token']#@">
+				<a class="brand" href="__APP__/Home/AdminPage/index?token=@#$_GET['token']#@">
 				<img src="__PUBLIC__/media/image/logo.png" alt="logo" />
 				</a>
 				<!-- END LOGO -->
@@ -115,31 +115,31 @@
 			<!-- BEGIN SIDEBAR MENU -->        
 			<ul class="page-sidebar-menu">
 				<li >
-					<a href="__APP__/Home/AdminPage/index?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/index?token=@#$_GET['token']#@">
 					<i class="icon-home"></i> 
 					<span class="title">HOME</span>
 					</a>
 				</li>
 				<li class="active start ">
-					<a href="__APP__/Home/AdminPage/user?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/user?token=@#$_GET['token']#@">
 					<i class="icon-cogs"></i> 
 					<span class="title">用户管理</span>
 					</a>
 				</li>
 				<li >
-					<a href="__APP__/Home/AdminPage/staff?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/staff?token=@#$_GET['token']#@">
 					<i class="icon-table"></i> 
 					<span class="title">技术员管理</span>
 					</a>
 				</li>
 				<li class="">
-					<a href="__APP__/Home/AdminPage/order?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/order?token=@#$_GET['token']#@">
 					<i class="icon-bookmark-empty"></i> 
 					<span class="title">订单管理</span>
 					</a>
 				</li>
 				<li class="last">
-					<a href="__APP__/Home/AdminPage/set?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/set?token=@#$_GET['token']#@">
 					<i class="icon-user"></i> 
 					<span class="title">设置</span>
 					</a>
@@ -209,7 +209,7 @@
 						<ul class="breadcrumb">
 							<li>
 								<i class="icon-home"></i>
-								<a href="__APP__/Home/AdminPage/index?access_token=@#$_GET['access_token']#@">Home</a>
+								<a href="__APP__/Home/AdminPage/index?token=@#$_GET['token']#@">Home</a>
 								<i class="icon-angle-right"></i>
 							</li>
 							<li>
@@ -259,7 +259,7 @@
 									<tbody>
                              <foreach name="user_list" item="vo">
 										<tr>											
-											<td><a href="__APP__/Home/AdminPage/order/user_id/@#$vo.user_id#@?access_token=@#$_GET['access_token']#@">@#$vo.name#@</a></td>
+											<td><a href="__APP__/Home/AdminPage/order/user_id/@#$vo.user_id#@?token=@#$_GET['token']#@">@#$vo.name#@</a></td>
 											<td>@#$vo.phone#@</td>
 											<td>
 											<div>
@@ -294,7 +294,7 @@
 							<div class="portlet-body fuelux">
 
 								<label>
-								<form method="get" action="__APP__/Home/AdminPage/user_search/access_token/@#$_GET['access_token']#@">
+								<form method="get" action="__APP__/Home/AdminPage/user_search/token/@#$_GET['token']#@">
 									<input type="text" name="key" class="m-wrap small">
 									<button type="submit" class="btn grey"><i class="icon-search"></i></button>
 									</form>
@@ -302,11 +302,11 @@
 
 								<table class="table table-striped table-bordered table-hover table-full-width dataTable" align="center">
 									
-									<tr><td><a href="__APP__/Home/AdminPage/user?access_token=@#$_GET['access_token']#@">全部</a></td></tr>
-									<tr><td><a href="__APP__/Home/AdminPage/user/type/user?access_token=@#$_GET['access_token']#@">普通用户</a></td></tr>
-									<tr><td><a href="__APP__/Home/AdminPage/user/type/vip?access_token=@#$_GET['access_token']#@">会员用户</a></td></tr>
-									<tr><td><a href="__APP__/Home/AdminPage/user/type/staff?access_token=@#$_GET['access_token']#@">技术员</a></td></tr>
-									<tr><td><a href="__APP__/Home/AdminPage/user/type/admin?access_token=@#$_GET['access_token']#@">管理员</a></td></tr>
+									<tr><td><a href="__APP__/Home/AdminPage/user?token=@#$_GET['token']#@">全部</a></td></tr>
+									<tr><td><a href="__APP__/Home/AdminPage/user/type/user?token=@#$_GET['token']#@">普通用户</a></td></tr>
+									<tr><td><a href="__APP__/Home/AdminPage/user/type/vip?token=@#$_GET['token']#@">会员用户</a></td></tr>
+									<tr><td><a href="__APP__/Home/AdminPage/user/type/staff?token=@#$_GET['token']#@">技术员</a></td></tr>
+									<tr><td><a href="__APP__/Home/AdminPage/user/type/admin?token=@#$_GET['token']#@">管理员</a></td></tr>
 								</table>
 
 							</div>
@@ -370,7 +370,7 @@
 
 $(document).ready(function() {
 
-	var access_token=$("#access_token").val();
+	var token=$("#token").val();
 	
 	$("[cs='user_group']").change(function(){
 		
@@ -397,7 +397,7 @@ $(document).ready(function() {
 	    }
 	    //会员
 	    if(new_value==1){
-	    	$.post("__APP__/Home/Admin/vip_add?access_token="+access_token,{user_id:user_id },function(data){
+	    	$.post("__APP__/Home/Admin/vip_add?token="+token,{user_id:user_id },function(data){
    				if(data.status==1){
    					$("p#errormsg").html("修改成功!").show(500).delay(2000).hide(500); 
 
@@ -412,7 +412,7 @@ $(document).ready(function() {
 	    }
 	        //普通
 	    if(new_value==0){
-	    	$.post("__APP__/Home/Admin/user_add?access_token="+access_token,{user_id:user_id },function(data){
+	    	$.post("__APP__/Home/Admin/user_add?token="+token,{user_id:user_id },function(data){
    				if(data.status==1){
    		//todo
    			$("p#errormsg").html("修改成功!").show(500).delay(2000).hide(500); 
@@ -435,7 +435,7 @@ $(document).ready(function() {
     	if(email==""){$("#error_email").show();}
     	else{
 	    	$("#submit_technician").text("添加中...");
-	    	$.post("__APP__/Home/Admin/staff_add?access_token="+access_token,{email:email,user_id:user_id },function(data){
+	    	$.post("__APP__/Home/Admin/staff_add?token="+token,{email:email,user_id:user_id },function(data){
    				if(data.status==1){
    					$("#email").val('');
 					$("#submit_technician").text("添加成功");
@@ -462,7 +462,7 @@ $("#error_email2").show();
     	}
 if(password!="" && email_admin!=""){
 	    	$("#submit_admin").text("添加中...");
-	    	$.post("__APP__/Home/Admin/admin_add?access_token="+access_token,{email:email,password:password,user_id:user_id },function(data){
+	    	$.post("__APP__/Home/Admin/admin_add?token="+token,{email:email,password:password,user_id:user_id },function(data){
    				if(data.status==1){
    					$("#password").val('');
    					$("email_admin").val('');

@@ -62,7 +62,7 @@
 <!-- BEGIN BODY -->
 
 <body class="page-header-fixed">
-<input type="hidden" id="access_token" value="@#$_GET['access_token']#@">
+<input type="hidden" id="token" value="@#$_GET['token']#@">
 	<!-- BEGIN HEADER -->
 
 	<div class="header navbar navbar-inverse navbar-fixed-top">
@@ -70,7 +70,7 @@
 		<div class="navbar-inner">
 			<div class="container-fluid">
 				<!-- BEGIN LOGO -->
-				<a class="brand" href="__APP__/Home/AdminPage/index?access_token=@#$_GET['access_token']#@">
+				<a class="brand" href="__APP__/Home/AdminPage/index?token=@#$_GET['token']#@">
 				<img src="__PUBLIC__/media/image/logo.png" alt="logo" />
 				</a>
 				<!-- END LOGO -->
@@ -113,31 +113,31 @@
 			<!-- BEGIN SIDEBAR MENU -->        
 			<ul class="page-sidebar-menu">
 				<li class=" start ">
-					<a href="__APP__/Home/AdminPage/index?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/index?token=@#$_GET['token']#@">
 					<i class="icon-home"></i> 
 					<span class="title">HOME</span>
 					</a>
 				</li>
 				<li class="">
-					<a href="__APP__/Home/AdminPage/user?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/user?token=@#$_GET['token']#@">
 					<i class="icon-cogs"></i> 
 					<span class="title">用户管理</span>
 					</a>
 				</li>
 				<li >
-					<a href="__APP__/Home/AdminPage/staff?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/staff?token=@#$_GET['token']#@">
 					<i class="icon-table"></i> 
 					<span class="title">技术员管理</span>
 					</a>
 				</li>
 				<li class="active">
-					<a href="__APP__/Home/AdminPage/order?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/order?token=@#$_GET['token']#@">
 					<i class="icon-bookmark-empty"></i> 
 					<span class="title">订单管理</span>
 					</a>
 				</li>
 				<li class="last">
-					<a href="__APP__/Home/AdminPage/set?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/set?token=@#$_GET['token']#@">
 					<i class="icon-user"></i> 
 					<span class="title">设置</span>
 					</a>
@@ -176,7 +176,7 @@
 
 								<i class="icon-home"></i>
 
-								<a href="__APP__/Home/AdminPage/index?access_token=@#$_GET['access_token']#@">Home</a>
+								<a href="__APP__/Home/AdminPage/index?token=@#$_GET['token']#@">Home</a>
 
 								<i class="icon-angle-right"></i>
 
@@ -247,8 +247,8 @@
 													<tr>
 													<td width="10"><button orderid="@#$vo.order_id#@" class="btnhide">+</button></td>
 													<td width="20%">@#$vo.number#@</td>
-													<td width="20%"><a href="__APP__/Home/AdminPage/order/staff_id/@#$vo.staff_id#@?access_token=@#$_GET['access_token']#@">@#$vo.staff_name#@</a></td>
-													<td width="20%"><a href="__APP__/Home/AdminPage/order/user_id/@#$vo.user_id#@?access_token=@#$_GET['access_token']#@">@#$vo.user_name#@</a></td>
+													<td width="20%"><a href="__APP__/Home/AdminPage/order/staff_id/@#$vo.staff_id#@?token=@#$_GET['token']#@">@#$vo.staff_name#@</a></td>
+													<td width="20%"><a href="__APP__/Home/AdminPage/order/user_id/@#$vo.user_id#@?token=@#$_GET['token']#@">@#$vo.user_name#@</a></td>
 													<td width="20%">@#$vo.status#@</td>
 													<td width="10%">
 														<span class="cancel_order" ajaxid="@#$vo.order_id#@">
@@ -296,7 +296,7 @@
 							</div>
 
 							<div class="portlet-body fuelux">
-<form method="get" action="__APP__/Home/AdminPage/order_search/access_token/@#$_GET['access_token']#@">
+<form method="get" action="__APP__/Home/AdminPage/order_search/token/@#$_GET['token']#@">
 								<label>
 
 									<input type="text" name="key" class="m-wrap small">
@@ -305,15 +305,15 @@
 </form>
 								<table class="table table-striped table-bordered table-hover table-full-width dataTable" align="center">
 									
-									<tr><td><a href="__APP__/Home/AdminPage/order?access_token=@#$_GET['access_token']#@">所有订单</a></td></tr>
-									<tr><td><a href="__APP__/Home/AdminPage/order/status/doin?access_token=@#$_GET['access_token']#@">活动订单</a></td></tr>
-									<tr><td><a href="__APP__/Home/AdminPage/order/status/done?access_token=@#$_GET['access_token']#@">非活动订单</a></td></tr>
-									<tr><td><a href="__APP__/Home/AdminPage/order/status/submitted?access_token=@#$_GET['access_token']#@">待分配订单</a></td></tr>
-									<tr><td><a href="__APP__/Home/AdminPage/order/status/distributed?access_token=@#$_GET['access_token']#@">待技术员确认订单</a></td></tr>
-									<tr><td><a href="__APP__/Home/AdminPage/order/status/confirmed?access_token=@#$_GET['access_token']#@">技术员已确认订单</a></td></tr>
-									<tr><td><a href="__APP__/Home/AdminPage/order/status/completed?access_token=@#$_GET['access_token']#@">已完成订单</a></td></tr>
-									<tr><td><a href="__APP__/Home/AdminPage/order/status/canceled?access_token=@#$_GET['access_token']#@">已取消订单</a></td></tr>
-									<tr><td><a href="__APP__/Home/AdminPage/order/status/rejected?access_token=@#$_GET['access_token']#@">待重新分配订单</a></td></tr>
+									<tr><td><a href="__APP__/Home/AdminPage/order?token=@#$_GET['token']#@">所有订单</a></td></tr>
+									<tr><td><a href="__APP__/Home/AdminPage/order/status/doin?token=@#$_GET['token']#@">活动订单</a></td></tr>
+									<tr><td><a href="__APP__/Home/AdminPage/order/status/done?token=@#$_GET['token']#@">非活动订单</a></td></tr>
+									<tr><td><a href="__APP__/Home/AdminPage/order/status/submitted?token=@#$_GET['token']#@">待分配订单</a></td></tr>
+									<tr><td><a href="__APP__/Home/AdminPage/order/status/distributed?token=@#$_GET['token']#@">待技术员确认订单</a></td></tr>
+									<tr><td><a href="__APP__/Home/AdminPage/order/status/confirmed?token=@#$_GET['token']#@">技术员已确认订单</a></td></tr>
+									<tr><td><a href="__APP__/Home/AdminPage/order/status/completed?token=@#$_GET['token']#@">已完成订单</a></td></tr>
+									<tr><td><a href="__APP__/Home/AdminPage/order/status/canceled?token=@#$_GET['token']#@">已取消订单</a></td></tr>
+									<tr><td><a href="__APP__/Home/AdminPage/order/status/rejected?token=@#$_GET['token']#@">待重新分配订单</a></td></tr>
 								</table>
 
 							</div>
@@ -393,7 +393,7 @@
 
 
 <script type="text/javascript">
-	var access_token=$("#access_token").val();
+	var token=$("#token").val();
 	$(".tabhide").hide();
 	$(".btnhide").click(function(){
 		var order_id=$(this).attr('orderid');
@@ -407,13 +407,13 @@
 			var order_id=$(this).attr('ajaxid');
 			$("#cancel_order_"+order_id).text('处理中..');
 			//alert(order_id);return;
-			$.post("__APP__/Home/Handle/cancel?access_token="+access_token, {order_id:order_id},//取消的订单号
+			$.post("__APP__/Home/Handle/cancel?token="+token, {order_id:order_id},//取消的订单号
 				function(data){
 					if(data.status==0){
 						$("#cancel_order_"+order_id).text('取消失败,请重试');
 						//document.location.reload("__APP__/Home/Index/order");
 					}else{
-						document.location.reload("__APP__/Home/IndexPage/order?access_token="+access_token);//重新加载网页
+						document.location.reload("__APP__/Home/IndexPage/order?token="+token);//重新加载网页
 					}
 			});
 		}

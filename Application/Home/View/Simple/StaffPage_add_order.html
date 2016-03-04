@@ -20,12 +20,12 @@
   </head>
 
   <body>
-  <input type="hidden" id="access_token" value="@#$_GET['access_token']#@">
+  <input type="hidden" id="token" value="@#$_GET['token']#@">
     <div class="navbar navbar-fixed-bottom navbar-inverse" role="navigation">
        <div class="container">   
        	  <ul class="nav nav-pills">
-           <li  class="active"><a href="__APP__/Home/StaffPage/add?access_token=@#$_GET['access_token']#@">一键接单</a></li>
-            <li><a href="__APP__/Home/StaffPage/not?access_token=@#$_GET['access_token']#@">查看订单</a></li>
+           <li  class="active"><a href="__APP__/Home/StaffPage/add?token=@#$_GET['token']#@">一键接单</a></li>
+            <li><a href="__APP__/Home/StaffPage/not?token=@#$_GET['token']#@">查看订单</a></li>
             <li><a href="__APP__/Home/AccountPage/logout">退出</a></li>
           </ul>
        </div>
@@ -76,7 +76,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-    var access_token=$("#access_token").val();
+    var token=$("#token").val();
   $("#error_description").hide();
     $("#checkbox").attr("checked",'true');
 //按下回车
@@ -92,7 +92,7 @@ $(document).ready(function(){
             var user_id=$("#user_id").val();
             var vip=$("#vip").val();
 
-        $.post("__APP__/Home/Staff/add?access_token="+access_token, {user_id:user_id,vip:vip,description:description,computer_id:computer_id},
+        $.post("__APP__/Home/Staff/add?token="+token, {user_id:user_id,vip:vip,description:description,computer_id:computer_id},
           function(data){
             if(data.status==0){
               alert(data.in);
@@ -100,7 +100,7 @@ $(document).ready(function(){
             }
             else{
                     $("#repair").text('接单成功!跳转中..');
-                  window.location.href="__APP__/Home/StaffPage/not?access_token="+access_token;//报修成功跳转
+                  window.location.href="__APP__/Home/StaffPage/not?token="+token;//报修成功跳转
                 }
         });
       }
@@ -130,7 +130,7 @@ $(document).ready(function(){
            var user_id=$("#user_id").val();
             var vip=$("#vip").val();
 
-      $.post("__APP__/Home/Staff/handle?access_token="+access_token, {user_id:user_id,vip:vip,description:description,computer_id:computer_id},
+      $.post("__APP__/Home/Staff/handle?token="+token, {user_id:user_id,vip:vip,description:description,computer_id:computer_id},
         function(data){
           if(data.status==0){
             alert(data.in);
@@ -138,7 +138,7 @@ $(document).ready(function(){
           }
           else{
                   $("#repair").text('报修成功,跳转中..');
-                window.location.href="__APP__/Home/StaffPage/not?access_token="+access_token;//报修成功跳转
+                window.location.href="__APP__/Home/StaffPage/not?token="+token;//报修成功跳转
               }
       });
     }

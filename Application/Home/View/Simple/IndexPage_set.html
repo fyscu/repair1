@@ -12,12 +12,12 @@
 </head>
 
 <body>
-<input type="hidden" id="access_token" value="@#$_GET['access_token']#@">
+<input type="hidden" id="token" value="@#$_GET['token']#@">
  <div class="navbar navbar-fixed-bottom navbar-inverse" role="navigation">
        <div class="container">   
           <ul class="nav nav-pills">
-            <li class="active"><a href="__APP__/Home/Index/index?access_token=@#$_GET['access_token']#@">飞扬报修</a></li>
-            <li><a href="__APP__/Home/IndexPage/order?access_token=@#$_GET['access_token']#@">查看订单</a></li>
+            <li class="active"><a href="__APP__/Home/Index/index?token=@#$_GET['token']#@">飞扬报修</a></li>
+            <li><a href="__APP__/Home/IndexPage/order?token=@#$_GET['token']#@">查看订单</a></li>
             <li><a href="__APP__/Home/AccountPage/logout">退出</a></li>
           </ul>
        </div>
@@ -44,7 +44,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-  var access_token=$("#access_token").val();
+  var token=$("#token").val();
   $("#error_name").hide();
   $("#error_phone").hide();
   $("body").keydown(function() {
@@ -63,15 +63,15 @@ $(document).ready(function(){
         $("#error_phone").hide();
         $("#reset").text('处理中..');
         //alert(name_value);return;
-        $.post("__APP__/Home/Handle/set?access_token="+access_token, {name:name_value,phone:phone_value},function(data){
+        $.post("__APP__/Home/Handle/set?token="+token, {name:name_value,phone:phone_value},function(data){
           if(data.status==0){
             //alert('提交失败,请稍后再试');
             $("#reset").text('修改失败,请重试');
-            document.location.reload("__APP__/Home/IndexPage/set?access_token="+access_token);
+            document.location.reload("__APP__/Home/IndexPage/set?token="+token);
           }else{
             //alert('修改成功！');
             $("#reset").text('修改成功,跳转中..');
-            window.location.href="__APP__/Home/Index/index?access_token="+access_token;
+            window.location.href="__APP__/Home/Index/index?token="+token;
           }
         });
       }
@@ -92,13 +92,13 @@ $(document).ready(function(){
       $("#error_name").hide();
       $("#error_phone").hide();
       $("#reset").text('处理中..');
-      $.post("__APP__/Home/Handle/set?access_token="+access_token, {name:name_value,phone:phone_value},function(data){
+      $.post("__APP__/Home/Handle/set?token="+token, {name:name_value,phone:phone_value},function(data){
         if(data.status==0){
           $("#reset").text('修改失败,请重试');
-          document.location.reload("__APP__/Home/IndexPage/set?access_token="+access_token);
+          document.location.reload("__APP__/Home/IndexPage/set?token="+token);
         }else{
           $("#reset").text('修改成功,跳转中..');
-          window.location.href="__APP__/Home/Index/index?access_token="+access_token;
+          window.location.href="__APP__/Home/Index/index?token="+token;
         }
       });
     }

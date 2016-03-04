@@ -57,7 +57,7 @@
 <!-- BEGIN BODY -->
 
 <body class="page-header-fixed">
-<input type="hidden" id="access_token" value="@#$_GET['access_token']#@">
+<input type="hidden" id="token" value="@#$_GET['token']#@">
 	<!-- BEGIN HEADER -->
 
 	<div class="header navbar navbar-inverse navbar-fixed-top">
@@ -65,7 +65,7 @@
 		<div class="navbar-inner">
 			<div class="container-fluid">
 				<!-- BEGIN LOGO -->
-				<a class="brand" href="__APP__/Home/AdminPage/index?access_token=@#$_GET['access_token']#@">
+				<a class="brand" href="__APP__/Home/AdminPage/index?token=@#$_GET['token']#@">
 				<img src="__PUBLIC__/media/image/logo.png" alt="logo" />
 				</a>
 				<!-- END LOGO -->
@@ -107,31 +107,31 @@
 			<!-- BEGIN SIDEBAR MENU -->        
 			<ul class="page-sidebar-menu">
 				<li class=" start ">
-					<a href="__APP__/Home/AdminPage/index?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/index?token=@#$_GET['token']#@">
 					<i class="icon-home"></i> 
 					<span class="title">HOME</span>
 					</a>
 				</li>
 				<li class="">
-					<a href="__APP__/Home/AdminPage/user?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/user?token=@#$_GET['token']#@">
 					<i class="icon-cogs"></i> 
 					<span class="title">用户管理</span>
 					</a>
 				</li>
 				<li class="active">
-					<a href="__APP__/Home/AdminPage/staff?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/staff?token=@#$_GET['token']#@">
 					<i class="icon-table"></i> 
 					<span class="title">技术员管理</span>
 					</a>
 				</li>
 				<li class="">
-					<a href="__APP__/Home/AdminPage/order?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/order?token=@#$_GET['token']#@">
 					<i class="icon-bookmark-empty"></i> 
 					<span class="title">订单管理</span>
 					</a>
 				</li>
 				<li class="last">
-					<a href="__APP__/Home/AdminPage/set?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/set?token=@#$_GET['token']#@">
 					<i class="icon-user"></i> 
 					<span class="title">设置</span>
 					</a>
@@ -169,7 +169,7 @@
 
 								<i class="icon-home"></i>
 
-								<a href="__APP__/Home/AdminPage/index?access_token=@#$_GET['access_token']#@">Home</a>
+								<a href="__APP__/Home/AdminPage/index?token=@#$_GET['token']#@">Home</a>
 
 								<i class="icon-angle-right"></i>
 
@@ -242,13 +242,13 @@
              <foreach name="staff_list" item="vo">
 										<tr>
 
-											<td><a href="__APP__/Home/AdminPage/order/staff_id/@#$vo.staff_id#@?access_token=@#$_GET['access_token']#@">@#$vo.name#@</a></td>
+											<td><a href="__APP__/Home/AdminPage/order/staff_id/@#$vo.staff_id#@?token=@#$_GET['token']#@">@#$vo.name#@</a></td>
 
 											<td>@#$vo.phone#@</td>
 
 											<td>@#$vo.email#@</td>
 
-											<td><a href="__APP__/Home/AdminPage/order/status/doing_staff/staff_id/@#$vo.staff_id#@?access_token=@#$_GET['access_token']#@">@#$vo.doing_count#@</a></td>
+											<td><a href="__APP__/Home/AdminPage/order/status/doing_staff/staff_id/@#$vo.staff_id#@?token=@#$_GET['token']#@">@#$vo.doing_count#@</a></td>
 
 											<td class="staffmax" staffid="@#$vo.staff_id#@">@#$vo.max#@</td>
 
@@ -290,16 +290,16 @@
 							<div class="portlet-body fuelux">
 
 								<label>
-								<form method="get" action="__APP__/Home/AdminPage/staff_search/access_token/@#$_GET['access_token']#@">
+								<form method="get" action="__APP__/Home/AdminPage/staff_search/token/@#$_GET['token']#@">
 									<input type="text" name="key" class="m-wrap small">
 									<button type="submit" class="btn grey"><i class="icon-search"></i></button>
 									</form>
 								</label>
 
 								<table class="table table-striped table-bordered table-hover table-full-width dataTable" align="center">
-										<tr><td><a href="__APP__/Home/AdminPage/staff?access_token=@#$_GET['access_token']#@">所有技术员</a></td></tr>
-									<tr><td><a href="__APP__/Home/AdminPage/staff/status/yes?access_token=@#$_GET['access_token']#@">可用技术员</a></td></tr>
-									<tr><td><a href="__APP__/Home/AdminPage/staff/status/no?access_token=@#$_GET['access_token']#@">不可用技术员</a></td></tr>
+										<tr><td><a href="__APP__/Home/AdminPage/staff?token=@#$_GET['token']#@">所有技术员</a></td></tr>
+									<tr><td><a href="__APP__/Home/AdminPage/staff/status/yes?token=@#$_GET['token']#@">可用技术员</a></td></tr>
+									<tr><td><a href="__APP__/Home/AdminPage/staff/status/no?token=@#$_GET['token']#@">不可用技术员</a></td></tr>
 								</table>
 
 							</div>
@@ -374,7 +374,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	var access_token=$("#access_token").val();
+	var token=$("#token").val();
 	var numTd = $(".staffmax"); 
 	numTd.click(function(){ 
 		var staff_id=$(this).attr("staffid");
@@ -414,7 +414,7 @@ $(document).ready(function(){
 		else{
 			
 			
-			$.post("__APP__/Home/Admin/staff_max_change?access_token="+access_token,{staff_id:staff_id,max:inputtext},function(data){
+			$.post("__APP__/Home/Admin/staff_max_change?token="+token,{staff_id:staff_id,max:inputtext},function(data){
 				if(data.status==1){
 						$("p#errormsg").html("修改成功!").show(500).delay(2000).hide(500); 
 
@@ -440,7 +440,7 @@ $(document).ready(function(){
 		var staff_id=$(this).attr("staffid");
 	    if(new_value==1){
 
-	    	$.post("__APP__/Home/Admin/staff_status_change?access_token="+access_token,{staff_id:staff_id,status:new_value},function(data){
+	    	$.post("__APP__/Home/Admin/staff_status_change?token="+token,{staff_id:staff_id,status:new_value},function(data){
    				if(data.status==1){
    						$("p#errormsg").html("修改成功!").show(500).delay(2000).hide(500); 
 
@@ -453,7 +453,7 @@ $(document).ready(function(){
    			});
 	    }
 	    if(new_value==0){
-	    	$.post("__APP__/Home/Admin/staff_status_change?access_token="+access_token,{staff_id:staff_id,status:new_value},function(data){
+	    	$.post("__APP__/Home/Admin/staff_status_change?token="+token,{staff_id:staff_id,status:new_value},function(data){
    				if(data.status==1){
    			$("p#errormsg").html("修改成功!").show(500).delay(2000).hide(500); 
 

@@ -162,8 +162,8 @@ function init()
         exit;
     }
 
-    if ($_GET['access_token']) {
-        $userinfo = is_tokenLogin($_GET['access_token']);
+    if ($_GET['token']) {
+        $userinfo = is_tokenLogin($_GET['token']);
         if ($userinfo) {
             $this->user_id = session('user_id');
             $this->ucid = session('ucid');
@@ -172,12 +172,12 @@ function init()
         } else {
             login_expire();
         }
-    } else if ($_SESSION['access_token']) {
+    } else if ($_SESSION['token']) {
         $self = __SELF__;
         if (substr($self, -1, 1) == '/') {
-            redirect(__SELF__ . 'access_token/' . $_SESSION['access_token']);
+            redirect(__SELF__ . 'token/' . $_SESSION['token']);
         } else {
-            redirect(__SELF__ . '/access_token/' . $_SESSION['access_token']);
+            redirect(__SELF__ . '/token/' . $_SESSION['token']);
         }
     } else {
         not_login();
@@ -203,7 +203,7 @@ function tokenLogin($token)
         session('user_id', $user_id);
         session('type', $type);
         session('ucid', $a['ucid']);
-        session('access_token', $token);
+        session('token', $token);
         if ($_SESSION['type'] == 3) {
             $b = M('admin');
             $admin_map['user_id'] = $user_id;
@@ -232,7 +232,7 @@ function tokenLogin($token)
         session('user_id', $user_id);
         session('type', $type);
         session('ucid', $a['ucid']);
-        session('access_token', $token);
+        session('token', $token);
         if ($_SESSION['type'] == 3) {
             $b = M('admin');
             $admin_map['user_id'] = $user_id;
@@ -253,7 +253,7 @@ function tokenLogin($token)
             redirect(U('Home/Index/index'));
         }
     } else {
-        session('access_token', $token);
+        session('token', $token);
         session('tel', $userinfo['data'][0]['tel']);
         redirect(U('Home/Account/register'));
     }

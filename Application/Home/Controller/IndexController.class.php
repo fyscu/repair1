@@ -21,7 +21,7 @@
 
             //调用checkOrder函数，判断是有订单未完成，如果有则跳转至【我的订单】
             if(checkOrder($_SESSION['user_id'])){
-                $this->error('您有尚未完成的订单，请确认完成后再进行报修！','/Home/IndexPage/order?token='.$_GET['access_token'].'&account='.$_GET['account']);
+                $this->error('您有尚未完成的订单，请确认完成后再进行报修！','/Home/IndexPage/order?token='.$_GET['token'].'&account='.$_GET['account']);
             }
 
             //查找用户信息

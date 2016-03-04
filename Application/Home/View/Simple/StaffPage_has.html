@@ -21,12 +21,12 @@
 </head>
 
 <body>
-<input type="hidden" id="access_token" value="@#$_GET['access_token']#@">
+<input type="hidden" id="token" value="@#$_GET['token']#@">
  <div class="navbar navbar-fixed-bottom navbar-inverse" role="navigation">
        <div class="container">   
        	  <ul class="nav nav-pills">
-           <li><a href="__APP__/Home/StaffPage/add?access_token=@#$_GET['access_token']#@">一键接单</a></li>
-            <li class="active"><a href="__APP__/Home/StaffPage/not?access_token=@#$_GET['access_token']#@">查看订单</a></li>
+           <li><a href="__APP__/Home/StaffPage/add?token=@#$_GET['token']#@">一键接单</a></li>
+            <li class="active"><a href="__APP__/Home/StaffPage/not?token=@#$_GET['token']#@">查看订单</a></li>
             <li><a href="__APP__/Home/AccountPage/logout">退出</a></li>
           </ul>
        </div>
@@ -34,8 +34,8 @@
 <div class="container1">
 <br><center><h3>我的维修单</h3></center>
 	<ul class="nav nav-tabs">
-	  <li><a href="__APP__/Home/StaffPage/not?access_token=@#$_GET['access_token']#@">未完成(@#$count_not#@)</a></li>
-	  <li class="active"><a href="__APP__/Home/StaffPage/has?access_token=@#$_GET['access_token']#@">已完成(@#$count_has#@)</a></li>
+	  <li><a href="__APP__/Home/StaffPage/not?token=@#$_GET['token']#@">未完成(@#$count_not#@)</a></li>
+	  <li class="active"><a href="__APP__/Home/StaffPage/has?token=@#$_GET['token']#@">已完成(@#$count_has#@)</a></li>
 	</ul>
 	<foreach name="info" item="vo">
 	<div class="jumbotron"><!--每一个订单-->

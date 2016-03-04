@@ -59,7 +59,7 @@
 <!-- BEGIN BODY -->
 
 <body class="page-header-fixed">
-<input type="hidden" id="access_token" value="@#$_GET['access_token']#@">
+<input type="hidden" id="token" value="@#$_GET['token']#@">
 	<!-- BEGIN HEADER -->
 
 	<div class="header navbar navbar-inverse navbar-fixed-top">
@@ -67,7 +67,7 @@
 		<div class="navbar-inner">
 			<div class="container-fluid">
 				<!-- BEGIN LOGO -->
-				<a class="brand" href="__APP__/Home/AdminPage/index?access_token=@#$_GET['access_token']#@">
+				<a class="brand" href="__APP__/Home/AdminPage/index?token=@#$_GET['token']#@">
 				<img src="__PUBLIC__/media/image/logo.png" alt="logo" />
 				</a>
 				<!-- END LOGO -->
@@ -110,31 +110,31 @@
 			<!-- BEGIN SIDEBAR MENU -->        
 			<ul class="page-sidebar-menu">
 				<li class="start ">
-					<a href="__APP__/Home/AdminPage/index?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/index?token=@#$_GET['token']#@">
 					<i class="icon-home"></i> 
 					<span class="title">HOME</span>
 					</a>
 				</li>
 				<li class="">
-					<a href="__APP__/Home/AdminPage/user?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/user?token=@#$_GET['token']#@">
 					<i class="icon-cogs"></i> 
 					<span class="title">用户管理</span>
 					</a>
 				</li>
 				<li >
-					<a href="__APP__/Home/AdminPage/staff?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/staff?token=@#$_GET['token']#@">
 					<i class="icon-table"></i> 
 					<span class="title">技术员管理</span>
 					</a>
 				</li>
 				<li class="">
-					<a href="__APP__/Home/AdminPage/order?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/order?token=@#$_GET['token']#@">
 					<i class="icon-bookmark-empty"></i> 
 					<span class="title">订单管理</span>
 					</a>
 				</li>
 				<li class="active last">
-					<a href="__APP__/Home/AdminPage/set?access_token=@#$_GET['access_token']#@">
+					<a href="__APP__/Home/AdminPage/set?token=@#$_GET['token']#@">
 					<i class="icon-user"></i> 
 					<span class="title">设置</span>
 					</a>
@@ -172,7 +172,7 @@
 
 								<i class="icon-home"></i>
 
-								<a href="__APP__/Home/AdminPage/index?access_token=@#$_GET['access_token']#@">Home</a>
+								<a href="__APP__/Home/AdminPage/index?token=@#$_GET['token']#@">Home</a>
 
 								<i class="icon-angle-right"></i>
 
@@ -180,7 +180,7 @@
 
 							<li>
 
-								<a href="__APP__/Home/AdminPage/set?access_token=@#$_GET['access_token']#@">设置</a>
+								<a href="__APP__/Home/AdminPage/set?token=@#$_GET['token']#@">设置</a>
 
 								<i class="icon-angle-right"></i>
 
@@ -224,7 +224,7 @@
 
 									<div style="width:400px; margin:0 auto;" class="accordion collapse">
 
-										<form action="__APP__/Home/AdminPage/set?access_token=@#$_GET['access_token']#@" method="post">
+										<form action="__APP__/Home/AdminPage/set?token=@#$_GET['token']#@" method="post">
 
 											<label class="control-label">姓名</label>
 

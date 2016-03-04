@@ -10,9 +10,9 @@ use Think\Controller;
             //echo 'index';exit;
             //dump($_SESSION);exit;
             if(is_admin_login()){
-                redirect('/Home/AdminPage/index?access_token='.$_GET['access_token']);
+                redirect('/Home/AdminPage/index?token='.$_GET['token']);
             }elseif(is_user_login()){
-                redirect('/Home/Index/index?access_token='.$_GET['access_token']);
+                redirect('/Home/Index/index?token='.$_GET['token']);
             }
         }
 
@@ -25,11 +25,11 @@ use Think\Controller;
 public function add_order(){
      //调用checkComputer函数，判断是否注册电脑，如果没有则跳转到注册页面注册
            if(!checkComputer($_GET['user_id'])){
-                $this->error('该用户尚未添加电脑！','/Home/StaffPage/add?access_token='.$_GET['access_token']);
+                $this->error('该用户尚未添加电脑！','/Home/StaffPage/add?token='.$_GET['token']);
            }
 
          if(!is_user($_GET['user_id'],'user_id')){
-            $this->error('没有该用户','/Home/StaffPage/add?access_token='.$_GET['access_token']);
+            $this->error('没有该用户','/Home/StaffPage/add?token='.$_GET['token']);
          }
          if(!isset($_GET['user_id'])){
 exit;
