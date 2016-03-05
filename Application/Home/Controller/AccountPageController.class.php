@@ -102,11 +102,11 @@
 				exit;
 			}
 
-			if($_GET['token']){
-				$uid=is_tokenLogin($_GET['token']);
-				if(!$uid){
-					$this->error('登录超时,请重新登录',$this->_fyuc->loginUrl(C('UC_CALLBACK')));
-				}else{
+			if($_GET['token'] && $_GET['account']){
+if(!$this->_fyuc->processCallback()){
+				$this->error('获取资料失败,请重新登录',$this->_fyuc->loginUrl(C('UC_CALLBACK')));
+				exit;
+			}else{
 
 					if(is_userExtend($_SESSION['tel'])){
 						$this->error('您已经注册过飞扬报修系统了,将跳转至首页','/Home/Index/index?token='.$_GET['token'].'&account='.$_GET['account']);
