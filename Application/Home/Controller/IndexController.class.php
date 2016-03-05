@@ -9,7 +9,7 @@
             if(is_admin_login()){
                 redirect('/Home/AdminPage/index?token='.$_GET['token'].'&account='.$_GET['account']);
             }elseif(is_staff_login()){
-                redirect('/Home/StaffPage/index?token='.$_GET['token'].'&account='.$_GET['account']);
+                redirect('/Home/StaffPage/not?token='.$_GET['token'].'&account='.$_GET['account']);
             }
         }
 
