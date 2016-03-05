@@ -22,7 +22,7 @@ class BaseApiController extends Controller
 			//不做权限检测
 		}else{
 
-		if($_GET['token']){
+		if($_SESSION['token']){
 			// include MODULE_PATH.'Common/fyuc.class.php';
 			// $this->_fyuc = new \FYUC(C('APP_ID'),C('APP_KEY'));
 			// if($_GET['token']!=$_SESSION['token']){
