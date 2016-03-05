@@ -16,8 +16,8 @@ class BasePageController extends Controller
         }
 
         if ($_GET['token']) {
-            include MODULE_PATH.'Common/fyuc.class.php';
-            $this->_fyuc = new \FYUC(C('APP_ID'),C('APP_KEY'));
+            // include MODULE_PATH.'Common/fyuc.class.php';
+            // $this->_fyuc = new \FYUC(C('APP_ID'),C('APP_KEY'));
             if ($_GET['token'] != $_SESSION['token']) {
                 session(null);
                 session('token', $_GET['token']);
@@ -25,9 +25,9 @@ class BasePageController extends Controller
                 exit;
             }
 
-            if (!$this->_fyuc->processCallback()) {
-                $this->error('登录超时,请重新登录', $this->_fyuc->loginUrl(C('UC_CALLBACK')));
-            }
+            // if (!$this->_fyuc->processCallback()) {
+            //     $this->error('登录超时,请重新登录', $this->_fyuc->loginUrl(C('UC_CALLBACK')));
+            // }
         } else if ($_SESSION['token']) {
             // $self = __SELF__;
             // redirect(__SELF__ . '?token=' . $_SESSION['token'].'&account='.$_GET['account']);

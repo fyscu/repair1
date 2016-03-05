@@ -23,8 +23,8 @@ class BaseApiController extends Controller
 		}else{
 
 		if($_GET['token']){
-			include MODULE_PATH.'Common/fyuc.class.php';
-			$this->_fyuc = new \FYUC(C('APP_ID'),C('APP_KEY'));
+			// include MODULE_PATH.'Common/fyuc.class.php';
+			// $this->_fyuc = new \FYUC(C('APP_ID'),C('APP_KEY'));
 			if($_GET['token']!=$_SESSION['token']){
 				session(null);
 				$data['status']=0;
@@ -33,12 +33,12 @@ class BaseApiController extends Controller
 				exit;
 			}
 
-			if(!$this->_fyuc->processCallback()){
-				$data['status']=0;
-				$data['info']='登录超时,请重新登录';
-				$this->ajaxReturn($data,'JSON');
-				exit;
-			}
+			// if(!$this->_fyuc->processCallback()){
+			// 	$data['status']=0;
+			// 	$data['info']='登录超时,请重新登录';
+			// 	$this->ajaxReturn($data,'JSON');
+			// 	exit;
+			// }
 		} else {
 			$data['status']=0;
 			$data['info']='未登录,请重新登录';
